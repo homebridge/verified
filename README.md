@@ -1,3 +1,16 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/3979615/76676648-d8754100-6619-11ea-8f3d-dafd6b18dffe.png" height="120">
+</p>
+
+<span align="center">
+
+# Homebridge
+
+<a href="https://www.npmjs.com/package/homebridge"><img title="npm version" src="https://badgen.net/npm/v/homebridge" ></a>
+<a href="https://www.npmjs.com/package/homebridge"><img title="npm downloads" src="https://badgen.net/npm/dt/homebridge" ></a>
+
+</span>
+
 # Verified By Homebridge
 
 The "Verified By Homebridge" program allows plugin developers to get their plugins reviewed and endorsed by the Homebridge project team.
@@ -20,6 +33,7 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must not execute postinstall scripts that modifies the users system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
 * The plugin must not throw unhandled exceptions, the plugin must catch and log it's own errors.
+* The plugin must be published to npm and the source code available on GitHub.
 * The plugin must run on all [currently supported LTS versions of Node.js](https://nodejs.org/en/about/releases/), at the time of writing this is Node.js v10 and v12.
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
@@ -37,3 +51,13 @@ Once your plugin has been verified you will remain in full control of the GitHub
 If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist finding a new owner, or take over the repository until a new maintainer can be found.
 
 Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the "Verified By Homebridge" status of your plugin in favor the new plugin.
+
+## Community
+
+The [#plugin-development](https://discord.gg/A7nCjbz) channel in the official Homebridge Discord server is where Homebridge plugin developers can get tips and advice from other developers and the Homebridge project team.
+
+<span align="center">
+
+[![Homebridge Discord](https://discordapp.com/api/guilds/432663330281226270/widget.png?style=banner2)](https://discord.gg/6GUFCb)
+
+</span>
