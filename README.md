@@ -53,6 +53,6 @@ The [#plugin-development](https://discord.gg/A7nCjbz) channel in the official Ho
 
 <span align="center">
 
-[![Homebridge Discord](https://discordapp.com/api/guilds/432663330281226270/widget.png?style=banner2)](https://discord.gg/6GUFCb)
+[![Homebridge Discord](https://discordapp.com/api/guilds/432663330281226270/widget.png?style=banner2)](https://discord.gg/kqNCe2D)
 
 </span>
