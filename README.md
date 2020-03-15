@@ -37,7 +37,7 @@ The Homebridge project team will check that your plugin meets the following crit
 
 If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
 
-If you need assistance meeting the verification requirements, please reach out on the [Homebridge Discord](https://discord.gg/6GUFCb).
+If you need assistance meeting the verification requirements, please reach out on the [Homebridge Discord](https://discord.gg/A7nCjbz).
 
 ## Post Verification
 
