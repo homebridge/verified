@@ -4,24 +4,19 @@
 
 <span align="center">
 
-# Homebridge
-
-<a href="https://www.npmjs.com/package/homebridge"><img title="npm version" src="https://badgen.net/npm/v/homebridge" ></a>
-<a href="https://www.npmjs.com/package/homebridge"><img title="npm downloads" src="https://badgen.net/npm/dt/homebridge" ></a>
+# Verified By Homebridge
 
 </span>
 
-# Verified By Homebridge
-
-The "Verified By Homebridge" program allows plugin developers to get their plugins reviewed and endorsed by the Homebridge project team.
+The **Verified By Homebridge** program allows plugin developers to get their plugins reviewed and endorsed by the Homebridge project team.
 
 ## Benefits
 
-* Have your plugin reviewed by the Homebridge team
-* Increase the visibility of your plugin
-* Increase the level of trust end users place in your plugin
-* The **"*Verified*"** badge will appear next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x)
-* Your plugin is bumped to the top of the search results in the Homebridge UI
+* Have your plugin reviewed by the Homebridge team.
+* Increase the visibility of your plugin.
+* Increase the level of trust end users place in your plugin.
+* The **"*Verified*"** badge will appear next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x).
+* Your plugin is bumped to the top of the search results in the Homebridge UI.
 
 ## Requirements
 
@@ -50,7 +45,7 @@ Once your plugin has been verified you will remain in full control of the GitHub
 
 If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist finding a new owner, or take over the repository until a new maintainer can be found.
 
-Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the "Verified By Homebridge" status of your plugin in favor the new plugin.
+Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the **Verified By Homebridge** status of your plugin in favor the new plugin.
 
 ## Community
 
