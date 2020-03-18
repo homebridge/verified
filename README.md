@@ -25,7 +25,7 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must successfully install.
 * The plugin must impliment the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
 * The plugin must not start unless it is configured.
-* The plugin must not execute postinstall scripts that modifies the users system in any way.
+* The plugin must not execute postinstall scripts that modify the users system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
 * The plugin must not throw unhandled exceptions, the plugin must catch and log it's own errors.
 * The plugin must be published to npm and the source code available on GitHub.
@@ -35,7 +35,7 @@ The Homebridge project team will check that your plugin meets the following crit
 
 ## How To Request Verification
 
-If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
+If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues/new/choose) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
 
 If you need assistance meeting the verification requirements, please reach out on the [Homebridge Discord](https://discord.gg/A7nCjbz).
 
