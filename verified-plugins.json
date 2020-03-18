@@ -1,0 +1,13 @@
+[
+  "homebridge-alexa",
+  "homebridge-camera-ffmpeg",
+  "homebridge-dummy",
+  "homebridge-hue",
+  "homebridge-gsh",
+  "homebridge-honeywell-home",
+  "homebridge-ring",
+  "homebridge-sonos",
+  "homebridge-tesla",
+  "homebridge-ws",
+  "homebridge-zp"
+]
