@@ -43,6 +43,14 @@ If you need assistance meeting the verification requirements, please reach out o
 
 Once your plugin has been verified you will remain in full control of the GitHub repository and npm package. Your plugin will appear on the "Verified By Homebridge" plugin list and the **"*Verified*"** badge will appear next to your plugin when the next update to the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x) is published.
 
+You may *optionally* add the **Verified By Homebridge** badge to your plugin README:
+
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
+```
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+```
+
 If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist finding a new owner, or take over the repository until a new maintainer can be found.
 
 Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the **Verified By Homebridge** status of your plugin in favor the new plugin.
