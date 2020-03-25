@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-color-round-stylized.png" height="140">
+  <a href="https://github.com/homebridge/homebridge"><img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-color-round-stylized.png" height="140"></a>
 </p>
 
 <span align="center">
@@ -29,7 +29,7 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must not contain any analytics or calls that enable you to track the user.
 * The plugin must not throw unhandled exceptions, the plugin must catch and log it's own errors.
 * The plugin must be published to npm and the source code available on GitHub.
-* The plugin must run on all [currently supported LTS versions of Node.js](https://nodejs.org/en/about/releases/), at the time of writing this is Node.js v10 and v12.
+* The plugin must run on all [Active LTS versions of Node.js](https://nodejs.org/en/about/releases/), at the time of writing this is Node.js v10 and v12.
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
