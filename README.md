@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/3979615/76676648-d8754100-6619-11ea-8f3d-dafd6b18dffe.png" height="120">
+<img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-color-round-stylized.png" height="130">
 </p>
 
 <span align="center">
