@@ -1,10 +1,12 @@
 [
   "homebridge-alexa",
   "homebridge-camera-ffmpeg",
+  "homebridge-chamberlain",
   "homebridge-dummy",
   "homebridge-hue",
   "homebridge-gsh",
   "homebridge-honeywell-home",
+  "homebridge-kodi",
   "homebridge-ring",
   "homebridge-sonos",
   "homebridge-tesla",
