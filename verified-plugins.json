@@ -12,5 +12,6 @@
   "homebridge-sonos",
   "homebridge-tesla",
   "homebridge-ws",
-  "homebridge-zp"
+  "homebridge-zp",
+  "homebridge-nest-cam2"
 ]
