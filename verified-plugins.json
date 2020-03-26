@@ -5,6 +5,7 @@
   "homebridge-dummy",
   "homebridge-hue",
   "homebridge-gsh",
+  "homebridge-homeqtt-alarm",
   "homebridge-honeywell-home",
   "homebridge-kodi",
   "homebridge-ring",
