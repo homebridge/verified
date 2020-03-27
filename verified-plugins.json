@@ -1,17 +1,21 @@
 [
   "homebridge-alexa",
+  "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
   "homebridge-dummy",
+  "homebridge-ecoplug",
+  "homebridge-harmony",
   "homebridge-hue",
   "homebridge-gsh",
   "homebridge-homeqtt-alarm",
   "homebridge-honeywell-home",
   "homebridge-kodi",
+  "homebridge-meross",
+  "homebridge-nest-cam2",
   "homebridge-ring",
   "homebridge-sonos",
   "homebridge-tesla",
   "homebridge-ws",
-  "homebridge-zp",
-  "homebridge-nest-cam2"
+  "homebridge-zp"
 ]
