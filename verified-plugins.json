@@ -1,5 +1,6 @@
 [
   "homebridge-alexa",
+  "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
   "homebridge-dummy",
