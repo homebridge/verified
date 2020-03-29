@@ -14,6 +14,7 @@
   "homebridge-meross",
   "homebridge-nest-cam2",
   "homebridge-ring",
+  "homebridge-rpi",
   "homebridge-sonos",
   "homebridge-tesla",
   "homebridge-ws",
