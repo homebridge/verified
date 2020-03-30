@@ -23,7 +23,7 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 The Homebridge project team will check that your plugin meets the following criteria:
 
 * The plugin must successfully install.
-* The plugin must impliment the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
+* The plugin must implement the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
 * The plugin must not start unless it is configured.
 * The plugin must not execute postinstall scripts that modify the users system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
