@@ -5,6 +5,7 @@
   "homebridge-chamberlain",
   "homebridge-denon-tv",
   "homebridge-dummy",
+  "homebridge-dyson-pure-cool",
   "homebridge-ecoplug",
   "homebridge-harmony",
   "homebridge-hue",
@@ -23,6 +24,7 @@
   "homebridge-rpi",
   "homebridge-scout",
   "homebridge-sonos",
+  "homebridge-sonos-multiroom",
   "homebridge-tesla",
   "homebridge-ws",
   "homebridge-zp"
