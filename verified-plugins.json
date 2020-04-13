@@ -1,5 +1,6 @@
 [
   "homebridge-alexa",
+  "homebridge-apple-tv-remote",  
   "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
@@ -20,6 +21,7 @@
   "homebridge-nest-cam2",
   "homebridge-openwebif-tv",
   "homebridge-pihole",
+  "homebridge-platform-wemo",
   "homebridge-ring",
   "homebridge-rpi",
   "homebridge-scout",
