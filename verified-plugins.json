@@ -16,6 +16,7 @@
   "homebridge-kodi",
   "homebridge-lgwebos-tv",
   "homebridge-meross",
+  "homebridge-milighthub-platform",
   "homebridge-mqttthing",
   "homebridge-mysmartblinds-bridge",
   "homebridge-nest-cam2",
@@ -30,5 +31,6 @@
   "homebridge-sonos-multiroom",
   "homebridge-tesla",
   "homebridge-ws",
+  "homebridge-xbox-tv",
   "homebridge-zp"
 ]
