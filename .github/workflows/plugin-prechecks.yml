@@ -1,0 +1,30 @@
+name: Plugin Pre-Checks
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm install --prefix precheck
+
+      - name: Check Plugin
+        id: pre_check
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          export TEST_RESULT="$(cd precheck && npx ts-node precheck.ts)"
+          echo "$TEST_RESULT"
+          echo ::set-output name=TEST_RESULT::"${TEST_RESULT}"
+
+      - name: Add Comment To Issue
+        uses: peter-evans/create-or-update-comment@v1.4.0
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ${{ steps.pre_check.outputs.TEST_RESULT }}
