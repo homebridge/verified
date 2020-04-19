@@ -1,0 +1,21 @@
+name: 'Homebridge Plugin Check'
+description: 'Basic validation of Homebridge plugins'
+inputs:
+  token:
+    description: 'GITHUB_TOKEN or a repo scoped PAT.'
+    default: ${{ github.token }}
+  body:
+    description: 'The created issue body.'
+    default: ${{ github.event.issue.body }}
+  issue-number:
+    description: 'The issue number to comment on.'
+    default: ${{ github.event.issue.number }}
+outputs:
+  comment-body:
+    description: 'The id of the created comment'
+runs:
+  using: 'node12'
+  main: 'index.js'
+branding:
+  icon: 'message-square'  
+  color: 'gray-dark'

@@ -2,6 +2,9 @@
  * This is a quick script to do some basic checks on Homebridge plugins
  */
 
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+
 import * as child_process from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs-extra';
@@ -11,28 +14,49 @@ class PluginTests {
   static testPath: string;
   static pluginInitializer;
 
-  static async start(packageName?: string) {
+  static errors: string[] = [];
+
+  static async start() {
     await this.createTestArea();
-    this.packageName = packageName;
 
     try {
-      if (!this.packageName) {
-        this.packageName = this.extractPluginNameFromIssue();
-      }
-
+      this.packageName = this.extractPluginNameFromIssue();
+      
       await this.install();
       await this.testImport();
       await this.testConfigSchema();
       await this.testDependencies();
-
-      console.log(':white_check_mark: Pre-checks completed successfully.')
     } catch (e) {
-      console.log(':x: Pre-check failed: ', e.message);
+      this.errors.push(e.message);
     }
 
+    if (!this.errors.length) {
+      await this.addComment(':white_check_mark: Pre-checks completed successfully.');
+    } else {
+      const comment = `The following pre-checks failed:\n\n` +
+        this.errors.map((e) => { return ':x: ' + e; }).join('\n')
+        + '\n\nComment `/check` to run checks again.'
+      await this.addComment(comment);
+    }
+    
     setTimeout(() => {
       process.exit(0);
-    }, 1000);
+    }, 100);
+  }
+
+  static async addComment(comment: string) {
+    const octokit = new github.GitHub(core.getInput('token'));
+
+    const repository = process.env.GITHUB_REPOSITORY;
+    const repo = repository.split("/");
+    core.debug(`repository: ${repository}`);
+
+    await octokit.issues.createComment({
+      owner: repo[0],
+      repo: repo[1],
+      issue_number: parseInt(core.getInput('issue-number'), 10),
+      body: comment,
+    });
   }
 
   static async createTestArea() {
@@ -52,7 +76,7 @@ class PluginTests {
   }
 
   static extractPluginNameFromIssue(): string {
-    const issueBody = process.env.ISSUE_BODY;
+    const issueBody = core.getInput('body');
     if (!issueBody) {
       throw new Error('Could not determine plugin name.');
     }
@@ -97,34 +121,35 @@ class PluginTests {
     const schemaPath = path.join(this.testPath, 'node_modules', this.packageName, 'config.schema.json');
 
     if (!await fs.pathExists(schemaPath)) {
-      throw new Error('Missing config.schema.json.');
+      this.errors.push('Missing config.schema.json.')
+      return;
     }
 
     try {
       await fs.readJson(schemaPath);
     } catch (e) {
-      throw new Error('The config.schema.json does not contain valid JSON.');
+      this.errors.push('The config.schema.json does not contain valid JSON.')
+      return;
     }
 
     const configSchema = await fs.readJson(schemaPath);
 
     if (typeof configSchema.pluginAlias !== 'string') {
-      throw new Error('The config.schema.json does not contain a valid "pluginAlias".');
+      this.errors.push('The config.schema.json does not contain a valid "pluginAlias".')
     }
 
     if (!['platform', 'accessory'].includes(configSchema.pluginType)) {
-      throw new Error('The config.schema.json does not contain a valid "pluginType".');
+      this.errors.push('The config.schema.json does not contain a valid "pluginType".')
     }
   }
 
-
   static async testDependencies() {
     if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'homebridge'))) {
-      throw new Error('The "homebridge" library was installed as a dependency.')
+      this.errors.push('The "homebridge" library was installed as a dependency.')
     }
 
     if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'hap-nodejs'))) {
-      throw new Error('The "homebridge" library was installed as a dependency.')
+      this.errors.push('The "hap-nodejs" library was installed as a dependency.')
     }
   }
 
@@ -136,10 +161,10 @@ class PluginTests {
       } else if (pluginModules && typeof pluginModules.default === 'function') {
         this.pluginInitializer = pluginModules.default;
       } else {
-        throw new Error('Plugin does not export a initializer function from main.');
+        this.errors.push('Plugin does not export an initializer function.')
       }
     } catch (e) {
-      throw new Error(`Failed to import plugin: ${e.message}`);
+      this.errors.push(`Failed to import plugin: ${e.message}`)
     }
   }
 

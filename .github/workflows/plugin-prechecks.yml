@@ -3,10 +3,13 @@ name: Plugin Pre-Checks
 on:
   issues:
     types: [opened]
+  issue_comment:
+    types: [created]
 
 jobs:
-  check-json:
+  check-plugin:
     runs-on: ubuntu-latest
+    if: github.event_name == 'issues' || (github.event_name == 'issue_comment' && github.event.comment.body == '/check')
     steps:
       - uses: actions/checkout@v1
 
@@ -14,17 +17,4 @@ jobs:
         run: npm install --prefix precheck
 
       - name: Check Plugin
-        id: pre_check
-        env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-        run: |
-          export TEST_RESULT="$(cd precheck && npx ts-node precheck.ts)"
-          echo "$TEST_RESULT"
-          echo ::set-output name=TEST_RESULT::"${TEST_RESULT}"
-
-      - name: Add Comment To Issue
-        uses: peter-evans/create-or-update-comment@v1.4.0
-        with:
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            ${{ steps.pre_check.outputs.TEST_RESULT }}
+        uses: './precheck'
