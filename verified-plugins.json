@@ -1,6 +1,7 @@
 [
   "homebridge-alexa",
-  "homebridge-apple-tv-remote",  
+  "homebridge-apple-tv-remote",
+  "homebridge-automower",
   "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
@@ -19,6 +20,7 @@
   "homebridge-lgwebos-tv",
   "homebridge-meross",
   "homebridge-milighthub-platform",
+  "homebridge-moodo",
   "homebridge-mqttthing",
   "homebridge-mysmartblinds-bridge",
   "homebridge-nest-cam2",
