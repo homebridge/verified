@@ -1,4 +1,5 @@
 [
+  "homebridge-adt-pulse",
   "homebridge-alexa",
   "homebridge-apple-tv-remote",
   "homebridge-automower",
