@@ -31,6 +31,7 @@
   "homebridge-nest",
   "homebridge-nest-cam2",
   "homebridge-openwebif-tv",
+  "homebridge-pc-volume",
   "homebridge-pihole",
   "homebridge-platform-wemo",
   "homebridge-presence-switch-msgraph",
