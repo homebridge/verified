@@ -56,6 +56,7 @@
   "homebridge-securitysystem",
   "homebridge-simplisafe3",
   "homebridge-skybell",
+  "homebridge-smartcielo",
   "homebridge-smartthings",
   "homebridge-somfy-hotwired",
   "homebridge-sonos",
@@ -64,6 +65,7 @@
   "homebridge-unifi-protect-camera-motion",
   "homebridge-videodoorbell",
   "homebridge-weather-plus",
+  "homebridge-webos-tv",
   "homebridge-ws",
   "homebridge-xbox-tv",
   "homebridge-zp"
