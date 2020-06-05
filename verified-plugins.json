@@ -54,6 +54,7 @@
   "homebridge-rpi",
   "homebridge-scout",
   "homebridge-securitysystem",
+  "homebridge-sensibo-ac",
   "homebridge-simplisafe3",
   "homebridge-skybell",
   "homebridge-smartcielo",
