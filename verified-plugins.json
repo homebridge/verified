@@ -15,6 +15,7 @@
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
   "homebridge-daikin-local",
+  "homebridge-delay-switch",
   "homebridge-denon-heos",
   "homebridge-denon-tv",
   "homebridge-dummy",
