@@ -28,6 +28,7 @@
   "homebridge-fibaro-hc3",
   "homebridge-gogogate2",
   "homebridge-gsh",
+  "homebridge-haieracbridge-platform",
   "homebridge-harmony",
   "homebridge-homeconnect",
   "homebridge-homeqtt-alarm",
@@ -49,6 +50,7 @@
   "homebridge-mysmartblinds-bridge",
   "homebridge-nest",
   "homebridge-nest-cam",
+  "homebridge-nukiio",
   "homebridge-openwebif-tv",
   "homebridge-pc-volume",
   "homebridge-pihole",
@@ -79,5 +81,6 @@
   "homebridge-wol",
   "homebridge-ws",
   "homebridge-xbox-tv",
+  "homebridge-xiaomi-fan",
   "homebridge-zp"
 ]
