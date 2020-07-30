@@ -78,6 +78,7 @@
   "homebridge-somfy-hotwired",
   "homebridge-sonos",
   "homebridge-sonos-multiroom",
+  "homebridge-switchbot-for-mac",
   "homebridge-switcher-boiler",
   "homebridge-tesla",
   "@milo526/homebridge-tuya-web",
