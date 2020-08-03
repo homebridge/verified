@@ -45,6 +45,7 @@
   "homebridge-lgwebos-tv",
   "homebridge-litter-robot-connect",
   "homebridge-magichome-dynamic-platform",
+  "homebridge-meraki-control",
   "homebridge-meross",
   "homebridge-messenger",
   "homebridge-mihome4u",
@@ -93,5 +94,6 @@
   "homebridge-ws",
   "homebridge-xbox-tv",
   "homebridge-xiaomi-fan",
+  "homebridge-xiaomi-roborock-vacuum",
   "homebridge-zp"
 ]
