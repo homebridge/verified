@@ -29,6 +29,7 @@
   "homebridge-evohome",
   "homebridge-ewelink-sonoff",
   "homebridge-fibaro-hc3",
+  "homebridge-fordpass",
   "homebridge-gogogate2",
   "homebridge-gsh",
   "homebridge-haieracbridge-platform",
