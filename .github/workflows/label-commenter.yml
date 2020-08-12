@@ -18,4 +18,4 @@ jobs:
         uses: peaceiris/actions-label-commenter@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          config_file: .github/label-commenter-config.yml
+          # config_file: .github/label-commenter-config.yml
