@@ -1,0 +1,8 @@
+labels:
+  - name: verified
+    labeled:
+      issue:
+        body: |
+          testing this
+
+          does multiple lines work?
