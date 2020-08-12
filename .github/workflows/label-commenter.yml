@@ -4,7 +4,6 @@ on:
   issues:
     types:
       - labeled
-      - unlabeled
 
 jobs:
   comment:
