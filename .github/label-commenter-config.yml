@@ -1,0 +1,19 @@
+labels:
+  - name: verified
+    labeled:
+      issue:
+        body: |
+          Congratulations! Your plugin has been verified.
+
+          You can now add the *Verified by Homebridge* badge to your plugin's README:
+
+          [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
+          ```
+          [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+          ```
+
+          Your plugin is now also eligible to display a *:heart: Donate* button on it's tile in the Homebridge UI. See https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links for instructions.
+
+          Thank you for your contribution to the Homebridge Community.
+          https://homebridge.io
