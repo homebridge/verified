@@ -48,6 +48,7 @@
   "homebridge-kumo",
   "homebridge-landroid",
   "homebridge-lgwebos-tv",
+  "homebridge-lighthouse",
   "homebridge-litter-robot-connect",
   "homebridge-magichome-dynamic-platform",
   "homebridge-meraki-control",
