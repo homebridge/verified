@@ -43,6 +43,7 @@
   "homebridge-homeconnect",
   "homebridge-homeqtt-alarm",
   "homebridge-honeywell-home",
+  "homebridge-honeywell-home-thermostat",
   "homebridge-honeywell-home-roomsensors",
   "homebridge-honeywell-leak",
   "homebridge-hue",
