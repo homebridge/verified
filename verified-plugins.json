@@ -1,5 +1,6 @@
 [
   "@milo526/homebridge-tuya-web",
+  "@string-bean/homebridge-drayton-wiser",
   "homebridge-433-arduino",
   "homebridge-adt-pulse",
   "homebridge-aladdin-connect-garage-door",
