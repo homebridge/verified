@@ -17,6 +17,7 @@
   "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-chamberlain",
+  "homebridge-comelit-vedo-platform",
   "homebridge-dafang-mqtt-republish",
   "homebridge-daikin-local",
   "homebridge-delay-switch",
