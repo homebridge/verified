@@ -123,5 +123,6 @@
   "homebridge-xbox-tv",
   "homebridge-xiaomi-fan",
   "homebridge-xiaomi-roborock-vacuum",
+  "homebridge-zigbee-nt",
   "homebridge-zp"
 ]
