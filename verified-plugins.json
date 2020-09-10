@@ -1,4 +1,5 @@
 [
+  "@balansse/homebridge-vivint",
   "@milo526/homebridge-tuya-web",
   "@string-bean/homebridge-drayton-wiser",
   "homebridge-433-arduino",
@@ -120,6 +121,7 @@
   "homebridge-unifi-protect-camera-motion",
   "homebridge-unifi-protect",
   "homebridge-videodoorbell",
+  "homebridge-vieramatic",
   "homebridge-volvo",
   "homebridge-weather-plus",
   "homebridge-webos-tv",
