@@ -21,7 +21,7 @@ jobs:
           stale-pr-label: 'stale'
           days-before-stale: 10
           days-before-close: 1
-          exempt-issue-labels: 'pinned'
+          exempt-issue-labels: 'pinned,pending-review'
           exempt-pr-labels: 'awaiting-approval,work-in-progress'
           remove-stale-when-updated: true
           close-issue-message: 'This issue has been automatically closed because it has not had recent activity. Thank you for your contributions.'
