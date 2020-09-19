@@ -68,6 +68,7 @@
   "homebridge-mercedesme",
   "homebridge-meross",
   "homebridge-messenger",
+  "homebridge-mi-hygrothermograph",
   "homebridge-mihome4u",
   "homebridge-mihomegateway",
   "homebridge-milighthub-platform",
