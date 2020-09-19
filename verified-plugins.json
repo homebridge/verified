@@ -41,6 +41,7 @@
   "homebridge-fordpass",
   "homebridge-ftp-motion",
   "homebridge-gogogate2",
+  "homebridge-govee",
   "homebridge-gpio-rgbw-ledstrip",
   "homebridge-grohe-sense",
   "homebridge-gsh",
