@@ -99,6 +99,7 @@
   "homebridge-platform-orbit",
   "homebridge-platform-wemo",
   "homebridge-presence-switch-msgraph",
+  "homebridge-remootio",
   "homebridge-ring",
   "homebridge-rinnai-touch-platform",
   "homebridge-roomme",
