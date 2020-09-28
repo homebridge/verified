@@ -87,6 +87,7 @@
   "homebridge-nuvo",
   "homebridge-octoprint-motion",
   "homebridge-octoprint-temp",
+  "homebridge-omnilink-platform",
   "homebridge-openwebif-tv",
   "homebridge-otgw",
   "homebridge-p1",
