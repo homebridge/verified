@@ -19,11 +19,17 @@ class CheckHomebridgePlugin {
   async start() {
     try {
       await this.createTestArea();
+      console.log('Created Test Area', this.errors.length)
       await this.install();
+      console.log('Installed Plugin', this.errors.length)
       await this.testImport();
+      console.log('Tested Import', this.errors.length)
       await this.testConfigSchema();
+      console.log('Tested Config Schema', this.errors.length)
       await this.testDependencies();
+      console.log('Tested Deps', this.errors.length)
     } catch (e) {
+      console.log(e)
       this.errors.push(e.message);
     }
 
@@ -57,13 +63,14 @@ class CheckHomebridgePlugin {
 
       const proc = child_process.spawn('npm', ['install', this.packageName], {
         cwd: this.testPath,
+        stdio: 'inherit'
       });
 
       proc.on('close', (code) => {
         if (code === 0) {
           resolve();
         } else {
-          reject('Failed to install.');
+          reject(new Error('Failed to install.'));
         }
       });
     });
