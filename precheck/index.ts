@@ -17,15 +17,9 @@ class PluginTests {
   static errors: string[] = [];
 
   static async start() {
-    await this.createTestArea();
-
     try {
       this.packageName = this.extractPluginNameFromIssue();
-      
-      await this.install();
-      await this.testImport();
-      await this.testConfigSchema();
-      await this.testDependencies();
+      await this.runTests();
     } catch (e) {
       this.errors.push(e.message);
     }
@@ -59,22 +53,6 @@ class PluginTests {
     });
   }
 
-  static async createTestArea() {
-    this.testPath = path.resolve(__dirname, 'test-area');
-
-    if (await fs.pathExists(this.testPath)) {
-      await fs.remove(this.testPath);
-    }
-
-    await fs.mkdirp(this.testPath);
-    await fs.writeJson(path.join(this.testPath, 'package.json'), {
-      private: true,
-      name: 'test-area',
-      description: 'n/a',
-      version: '0.0.0'
-    }, { spaces: 4 });
-  }
-
   static extractPluginNameFromIssue(): string {
     const issueBody = core.getInput('body');
     if (!issueBody) {
@@ -100,71 +78,36 @@ class PluginTests {
     }
   }
 
-  static async install() {
-    return new Promise((resolve, reject) => {
-
-      const proc = child_process.spawn('npm', ['install', this.packageName], {
-        cwd: this.testPath,
-      });
-
-      proc.on('close', (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject('Failed to install.');
-        }
-      });
-    });
-  }
-
-  static async testConfigSchema() {
-    const schemaPath = path.join(this.testPath, 'node_modules', this.packageName, 'config.schema.json');
-
-    if (!await fs.pathExists(schemaPath)) {
-      this.errors.push('Missing config.schema.json.')
-      return;
-    }
-
+  static async runTests() {
+    // create container
     try {
-      await fs.readJson(schemaPath);
+      child_process.execSync('docker build -t check .', {
+        cwd: __dirname,
+        stdio: 'inherit'
+      });
     } catch (e) {
-      this.errors.push('The config.schema.json does not contain valid JSON.')
+      this.errors.push('Failed to test plugin.', e.message)
       return;
     }
 
-    const configSchema = await fs.readJson(schemaPath);
+    const resultsPath = path.resolve(__dirname, 'results');
+    const errorResultPath = path.resolve(resultsPath, 'error.json');
 
-    if (typeof configSchema.pluginAlias !== 'string') {
-      this.errors.push('The config.schema.json does not contain a valid "pluginAlias".')
-    }
+    await fs.mkdirp(resultsPath);
 
-    if (!['platform', 'accessory'].includes(configSchema.pluginType)) {
-      this.errors.push('The config.schema.json does not contain a valid "pluginType".')
-    }
-  }
-
-  static async testDependencies() {
-    if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'homebridge'))) {
-      this.errors.push('The "homebridge" library was installed as a dependency.')
-    }
-
-    if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'hap-nodejs'))) {
-      this.errors.push('The "hap-nodejs" library was installed as a dependency.')
-    }
-  }
-
-  static async testImport() {
+    // run tests
     try {
-      const pluginModules = require(path.join(this.testPath, 'node_modules', this.packageName));
-      if (typeof pluginModules === 'function') {
-        this.pluginInitializer = pluginModules;
-      } else if (pluginModules && typeof pluginModules.default === 'function') {
-        this.pluginInitializer = pluginModules.default;
+      child_process.execSync(`docker run --rm -e HOMEBRIDGE_PLUGIN_NAME=${this.packageName} -v ${resultsPath}:/results check`, {
+        cwd: __dirname,
+        stdio: 'inherit'
+      });
+    } catch (e) {
+      if (await fs.pathExists(errorResultPath)) {
+        const pluginErrors = await fs.readJson(errorResultPath);
+        this.errors.push(...pluginErrors);
       } else {
-        this.errors.push('Plugin does not export an initializer function.')
+        this.errors.push('Failed to test plugin.', e.message)
       }
-    } catch (e) {
-      this.errors.push(`Failed to import plugin: ${e.message}`)
     }
   }
 
