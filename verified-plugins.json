@@ -58,6 +58,8 @@
   "homebridge-honeywell-home-roomsensor-thermostat",
   "homebridge-honeywell-home-thermostat",
   "homebridge-honeywell-leak",
+  "homebridge-http-curtain",
+  "homebridge-hubitat-tonesto7",
   "homebridge-hue",
   "homebridge-jablotron",
   "homebridge-keylights",
