@@ -25,6 +25,7 @@
   "homebridge-comelit-platform",
   "homebridge-comelit-sb-platform",
   "homebridge-comelit-vedo-platform",
+  "homebridge-coviva-hager",
   "homebridge-dafang-mqtt-republish",
   "homebridge-dahua-alerts",
   "homebridge-daikin-local",
@@ -50,6 +51,7 @@
   "homebridge-glances",
   "homebridge-gogogate2",
   "homebridge-govee",
+  "homebridge-gpio-rgb-ledstrip",
   "homebridge-gpio-rgbw-ledstrip",
   "homebridge-grohe-sense",
   "homebridge-gsh",
@@ -163,6 +165,7 @@
   "homebridge-xbox-tv",
   "homebridge-xiaomi-fan",
   "homebridge-xiaomi-roborock-vacuum",
+  "homebridge-yeelighter",
   "homebridge-zigbee-nt",
   "homebridge-zp"
 ]
