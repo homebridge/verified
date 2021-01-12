@@ -26,7 +26,7 @@
   "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-camera-ui",
-  "homebridge-caseta-lutron-leap",
+  "homebridge-lutron-caseta-leap",
   "homebridge-comelit-platform",
   "homebridge-comelit-sb-platform",
   "homebridge-comelit-vedo-platform",
