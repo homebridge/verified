@@ -4,7 +4,7 @@ on:
   issues:
     types: [reopened]
   schedule:
-    - cron: '*/60 * * * *'
+    - cron: '30 1 * * *'
 
 jobs:
   stale:
