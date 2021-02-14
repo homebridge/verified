@@ -28,10 +28,10 @@
   "homebridge-button-platform",
   "homebridge-camera-ffmpeg",
   "homebridge-camera-ui",
-  "homebridge-lutron-caseta-leap",
   "homebridge-comelit-platform",
   "homebridge-comelit-sb-platform",
   "homebridge-comelit-vedo-platform",
+  "homebridge-config-ui-x",
   "homebridge-coviva-hager",
   "homebridge-dafang-mqtt-republish",
   "homebridge-dahua-alerts",
@@ -89,6 +89,7 @@
   "homebridge-lgwebos-tv",
   "homebridge-lighthouse",
   "homebridge-litter-robot-connect",
+  "homebridge-lutron-caseta-leap",
   "homebridge-luxtronik2",
   "homebridge-magichome-dynamic-platform",
   "homebridge-meraki-control",
@@ -189,7 +190,7 @@
   "homebridge-xiaomi-mi-air-purifier",
   "homebridge-xiaomi-roborock-vacuum",
   "homebridge-yeelighter",
-  "homebridge-zigbee-nt",
   "homebridge-z2m",
+  "homebridge-zigbee-nt",
   "homebridge-zp"
 ]
