@@ -135,6 +135,7 @@
   "homebridge-platform-orbit",
   "homebridge-platform-wemo",
   "homebridge-plex-webhooks",
+  "homebridge-plugin-update-check",
   "homebridge-presence-switch-msgraph",
   "homebridge-remootio",
   "homebridge-ring",
