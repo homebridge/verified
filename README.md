@@ -26,12 +26,12 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must successfully install.
 * The plugin must implement the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
 * The plugin must not start unless it is configured.
-* The plugin must not execute postinstall scripts that modify the users system in any way.
+* The plugin must not execute post-install scripts that modify the users' system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
-* The plugin must not throw unhandled exceptions, the plugin must catch and log it's own errors.
+* The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 * The plugin must be published to npm and the source code available on GitHub.
   * A GitHub release - with patch notes - should be created for every new version of your plugin.
-* The plugin must run on all [supported LTS versions of Node.js](https://nodejs.org/en/about/releases/), at the time of writing this is Node.js v10, v12 and v14.
+* The plugin must run on all [supported LTS versions of Node.js](https://nodejs.org/en/about/releases/), at the time of writing this is Node.js v10, v12, and v14.
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
