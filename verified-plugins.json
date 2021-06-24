@@ -223,6 +223,7 @@
   "homebridge-tp-link-powerline",
   "homebridge-tplink-smarthome",
   "homebridge-tuya",
+  "homebridge-tuya-platform",
   "homebridge-twinkly",
   "homebridge-ueboom",
   "homebridge-unifi-protect",
