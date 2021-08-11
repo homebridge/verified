@@ -138,6 +138,7 @@
   "homebridge-mqtt",
   "homebridge-mqttthing",
   "homebridge-music",
+  "homebridge-mylink",
   "homebridge-myq",
   "homebridge-mysmartblinds-bridge",
   "homebridge-naim-audio",
