@@ -1,0 +1,27 @@
+name: Plugin Review Request
+description: Request your plugin be reviewed for verification
+title: "homebridge-"
+labels: [pending-review]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please double check the [requirements list](https://github.com/homebridge/verified#requirements) before submitting a request.
+  - type: input
+    attributes:
+      label: Plugin Name
+      placeholder: homebridge-xyz
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Link To GitHub Repo
+      placeholder: https://github.com/homebridge/homebridge-xyz
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Link To NPM Package
+      placeholder: https://www.npmjs.com/package/homebridge-xyz
+    validations:
+      required: true
