@@ -185,6 +185,7 @@
   "homebridge-presence-switch-slack",
   "homebridge-printer",
   "homebridge-rachio-irrigation",
+  "homebridge-rainbird",
   "homebridge-remootio",
   "homebridge-ring",
   "homebridge-rinnai-touch-platform",
