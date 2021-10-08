@@ -3,6 +3,7 @@
   "@milo526/homebridge-tuya-web",
   "@puchupala/homebridge-nature-remo-multi-toggle-light",
   "@string-bean/homebridge-drayton-wiser",
+  "@switchbot/homebridge-switchbot",
   "@switchbot/homebridge-switchbot-ble",
   "homebridge-3em-energy-meter",
   "homebridge-433-arduino",
