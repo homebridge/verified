@@ -17,8 +17,8 @@ labels:
 
           ---
 
-         Everything Looks Good!
-labels:
+          Everything Looks Good!
+        action: open
   - name: verified
     labeled:
       issue:
@@ -37,7 +37,7 @@ labels:
 
           Thank you for your contribution to the Homebridge Community.
           https://homebridge.io
-labels:
+        action: open
   - name: awaiting-changes
     labeled:
       issue:
@@ -58,4 +58,5 @@ labels:
 
          ```
 
-         ```          
+         ```
+        action: open
