@@ -19,7 +19,7 @@ labels:
 
           Everything Looks Good!
         action: open
-  - name: verified
+  - name: verified-badge
     labeled:
       issue:
         body: |
