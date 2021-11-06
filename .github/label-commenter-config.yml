@@ -1,5 +1,5 @@
 labels:
-  - name: verified
+  - name: checked
     labeled:
       issue:
         body: |
@@ -19,7 +19,7 @@ labels:
 
           Everything Looks Good!
         action: open
-  - name: verified-badge
+  - name: verified
     labeled:
       issue:
         body: |
