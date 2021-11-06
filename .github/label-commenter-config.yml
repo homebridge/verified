@@ -1,5 +1,5 @@
 labels:
-  - name: checked
+  - name: reviewed
     labeled:
       issue:
         body: |
