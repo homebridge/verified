@@ -38,7 +38,7 @@ labels:
           Thank you for your contribution to the Homebridge Community.
           https://homebridge.io
         action: open
-  - name: awaiting-changes
+  - name: currently-reviewing
     labeled:
       issue:
         body: |
