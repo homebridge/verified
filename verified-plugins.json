@@ -1,5 +1,6 @@
 [
   "@balansse/homebridge-vivint",
+  "@fjs21/homebridge-blueair",
   "@jdes/homebridge-tost-corp-somfy-rts-web",
   "@milo526/homebridge-tuya-web",
   "@puchupala/homebridge-nature-remo-multi-toggle-light",
