@@ -84,6 +84,7 @@
   "homebridge-glances",
   "homebridge-gogogate2",
   "homebridge-govee",
+  "homebridge-gpio-doorbell",
   "homebridge-gpio-rgb-ledstrip",
   "homebridge-gpio-rgbw-ledstrip",
   "homebridge-grohe-sense",
