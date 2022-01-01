@@ -3,16 +3,17 @@ on:
   issue_comment:
     types: [created]
 
+
 jobs:
-  add_label:
+  review_add_label:
     runs-on: ubuntu-latest
     steps:
-      - uses: Amwam/issue-comment-action@v1.3.1
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.event.comment.body, '/check') }}
         with:
-          keywords: '["check", "/check"]'
-          labels: '["pending-review"]'
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-  remove_label:
+          labels: pending-review      
+  review_remove_labels:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,4 +21,30 @@ jobs:
         if: ${{ startsWith(github.event.comment.body, '/check') }}
         with:
           github_token: ${{ secrets.github_token }}
-          labels: awaiting-changes
+          labels: |
+            awaiting-changes
+            verified
+            currently-reviewing
+            reviewed
+  verified_add_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.event.comment.body, 'Looks Good') }}
+        with:
+          labels: verified        
+  verified_remove_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ startsWith(github.event.comment.body, 'Looks Good') }}
+        with:
+          github_token: ${{ secrets.github_token }}
+          labels: |
+            awaiting-changes
+            pending-review
+            currently-reviewing
+            reviewed
+            
