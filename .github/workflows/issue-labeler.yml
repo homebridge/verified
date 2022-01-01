@@ -4,7 +4,7 @@ on:
     types: [created]
 
 jobs:
-  test:
+  add_label:
     runs-on: ubuntu-latest
     steps:
       - uses: Amwam/issue-comment-action@v1.3.1
@@ -12,3 +12,12 @@ jobs:
           keywords: '["check", "/check"]'
           labels: '["pending-review"]'
           github-token: "${{ secrets.GITHUB_TOKEN }}"
+  remove_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ startsWith(github.event.comment.body, '/check') }}
+        with:
+          github_token: ${{ secrets.github_token }}
+          labels: awaiting-changes
