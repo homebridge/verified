@@ -1,6 +1,6 @@
 name: "Set Issue Label"
 on:
-  issues_comment:
+  issue_comment:
     types: [created]
 
 jobs:
