@@ -55,10 +55,11 @@ labels:
           * [ ] - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
           ---
-          Comment `/check` to run checks again.
+
+          ```
+
+          ```
+          
           ---
-
-          ```
-
-          ```
+          #### Comment `/check` to run checks again.
         action: open
