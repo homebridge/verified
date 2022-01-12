@@ -210,6 +210,7 @@
   "homebridge-rachio-irrigation",
   "homebridge-rainbird",
   "homebridge-remootio",
+  "homebridge-rgb-ledstrip",
   "homebridge-ring",
   "homebridge-rinnai-controlr",
   "homebridge-rinnai-touch-platform",
