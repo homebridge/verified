@@ -171,6 +171,7 @@
   "homebridge-network-presence",
   "homebridge-node-alarm-dot-com",
   "homebridge-noip",
+  "homebridge-notifyevents",
   "homebridge-nukiio",
   "homebridge-nuvo",
   "homebridge-octoprint-motion",
