@@ -10,5 +10,5 @@ jobs:
   check-json:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - run: cat verified-plugins.json | jq type
