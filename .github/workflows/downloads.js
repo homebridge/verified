@@ -4,7 +4,7 @@ var ls = require( 'npm-list-author-packages' );
 var counts = require( 'npm-package-download-counts' );
  
 // Get download counts for all author packages...
-var opts = ../verified-plugins.json;
+var opts = 'https://raw.githubusercontent.com/homebridge/verified/downloads-test/verified-plugins.json';
  
 ls( opts, onList );
  
