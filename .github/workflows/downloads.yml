@@ -17,7 +17,6 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
       - run: node .github/workflows/downloads.js
       - run: npm --no-git-tag-version version downloads
         env:
