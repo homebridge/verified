@@ -10,15 +10,12 @@ function download(fileUrl, fileName) {
   a.click();
 }
  
-const verified = download("https://raw.githubusercontent.com/homebridge/verified/downloads-test/verified-plugins.json", "verified-plugins.json");
+const verified = 'https://raw.githubusercontent.com/homebridge/verified/downloads-test/verified-plugins.json';
 
-var opts = verified;
+var opts = {
+    'packages': verified,
+    'period': 'last-month'
+};
+
  
-counts( opts, clbk );
- 
-function clbk( error, data ) {
-    if ( error ) {
-        throw error;
-    }
-    console.dir( data );
-}
+counts( opts );
