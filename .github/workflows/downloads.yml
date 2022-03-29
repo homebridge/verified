@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: npm install npm-package-download-counts    
+      - run: npm install npm-package-download-counts got    
       - run: node .github/workflows/downloads.js
       - run: npm --no-git-tag-version version downloads
         env:
