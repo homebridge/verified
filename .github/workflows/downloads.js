@@ -3,7 +3,9 @@
 var counts = require( 'npm-package-download-counts' );
  
 // Get download counts for all author packages...
-var opts = 'https://raw.githubusercontent.com/homebridge/verified/downloads-test/verified-plugins.json';
+const verified = browser.downloads.download({url: "https://raw.githubusercontent.com/homebridge/verified/downloads-test/verified-plugins.json"})
+
+var opts = verified;
  
 counts( opts, clbk );
  
