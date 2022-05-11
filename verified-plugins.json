@@ -51,6 +51,7 @@
   "homebridge-comelit-vedo-platform",
   "homebridge-config-ui-x",
   "homebridge-coviva-hager",
+  "homebridge-daelim-smarthome",
   "homebridge-dafang-mqtt-republish",
   "homebridge-dahua-alerts",
   "homebridge-daikin-local",
