@@ -119,6 +119,7 @@
   "homebridge-honeywell-home-thermostat",
   "homebridge-honeywell-leak",
   "homebridge-http-curtain",
+  "homebridge-http-garage-doors",
   "homebridge-http-iot",
   "homebridge-hubitat-tonesto7",
   "homebridge-hue",
