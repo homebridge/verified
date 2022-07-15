@@ -17,8 +17,8 @@
   "homebridge-airport-express-playing",
   "homebridge-airthings",
   "homebridge-airzone-cloud",
-  "homebridge-aladdinconnect",
   "homebridge-aladdin-connect-garage-door",
+  "homebridge-aladdinconnect",
   "homebridge-alexa",
   "homebridge-alexa-player",
   "homebridge-amazondash-mac",
@@ -331,6 +331,5 @@
   "homebridge-yet-another-ping",
   "homebridge-z2m",
   "homebridge-zidoo-androidtv",
-  "homebridge-zigbee-nt",
   "homebridge-zp"
 ]
