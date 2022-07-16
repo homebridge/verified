@@ -44,6 +44,7 @@
   "homebridge-broadlink-heater-cooler",
   "homebridge-browsercam",
   "homebridge-button-platform",
+  "homebridge-calendar-scheduler",
   "homebridge-camera-ffmpeg",
   "homebridge-camera-ui",
   "homebridge-carrier-infinity",
