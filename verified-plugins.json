@@ -1,5 +1,6 @@
 [
   "@balansse/homebridge-vivint",
+  "@busse/homebridge-pluggit",
   "@fjs21/homebridge-blueair",
   "@jdes/homebridge-tost-corp-somfy-rts-web",
   "@milo526/homebridge-tuya-web",
@@ -319,6 +320,7 @@
   "homebridge-unifi-poe-control",
   "homebridge-unifi-protect",
   "homebridge-unifi-protect-camera-motion",
+  "homebridge-ups",
   "homebridge-verisure",
   "homebridge-vesync-v2",
   "homebridge-videodoorbell",
