@@ -1,4 +1,5 @@
 [
+  "@0x5e/homebridge-tuya-platform",
   "@balansse/homebridge-vivint",
   "@busse/homebridge-pluggit",
   "@fjs21/homebridge-blueair",
