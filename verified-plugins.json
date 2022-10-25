@@ -15,6 +15,7 @@
   "homebridge-3em-energy-meter",
   "homebridge-433-arduino",
   "homebridge-actron-que",
+  "homebridge-adguardhome",
   "homebridge-adt-pulse",
   "homebridge-advanced-timer",
   "homebridge-air-q",
