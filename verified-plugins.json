@@ -14,6 +14,7 @@
   "@switchbot/homebridge-switchbot",
   "homebridge-3em-energy-meter",
   "homebridge-433-arduino",
+  "homebridge-abode-lights",
   "homebridge-actron-que",
   "homebridge-adguardhome",
   "homebridge-abode-lights",
