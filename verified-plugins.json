@@ -142,7 +142,7 @@
   "homebridge-homeconnect",
   "homebridge-homekit-control",
   "homebridge-homeqtt-alarm",
-  "homebridge-homewizard-energy-socket"
+  "homebridge-homewizard-energy-socket",
   "homebridge-homeworks",
   "homebridge-http-curtain",
   "homebridge-http-garage-doors",
