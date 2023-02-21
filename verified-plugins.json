@@ -9,6 +9,7 @@
   "@hernas/homebridge-panasonic-heat-pump",
   "@milo526/homebridge-tuya-web",
   "@ohmantics/homebridge-airmega",
+  "@o-lukas/homebridge-smartthings-tv",
   "@poblouin/homebridge-spotify-speaker",
   "@puchupala/homebridge-nature-remo-multi-toggle-light",
   "@rsauget/homebridge-flexom",
