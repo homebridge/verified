@@ -5,6 +5,9 @@
 import * as child_process from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { pathToFileURL } from "url";
+
+const _importDynamic = new Function("modulePath", "return import(modulePath)");
 
 class CheckHomebridgePlugin {
   errors: string[] = [];
@@ -78,7 +81,38 @@ class CheckHomebridgePlugin {
 
   async testImport() {
     try {
-      const pluginModules = require(path.join(this.testPath, 'node_modules', this.packageName));
+      const packageJSON = await fs.readJson(path.join(this.testPath, 'node_modules', this.packageName, 'package.json'));
+      let main = '';
+
+      // figure out the main module
+      // exports is available - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_package_entry_points
+      if (packageJSON.exports) {
+        // main entrypoint - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_main_entry_point_export
+        if (typeof packageJSON.exports === "string") {
+          main = packageJSON.exports;
+        } else { // subpath export - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_subpath_exports
+          // conditional exports - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_conditional_exports
+          const exports = packageJSON.exports.import || packageJSON.exports.require || packageJSON.exports.node || packageJSON.exports.default || packageJSON.exports["."];
+
+          // check if conditional export is nested
+          if (typeof exports !== "string") {
+            if(exports.import) {
+              main = exports.import;
+            } else {
+              main = exports.require || exports.node || exports.default;
+            }
+          } else {
+            main = exports;
+          }
+        }
+      }
+
+      // exports search was not successful, fallback to package.main, using index.js as fallback
+      if (!main) {
+        main = packageJSON.main || "./index.js";
+      }
+      const mainPath = path.join(this.testPath, 'node_modules', this.packageName, main);
+      const pluginModules = await _importDynamic(pathToFileURL(mainPath).href)
       if (typeof pluginModules === 'function') {
         // ok
       } else if (pluginModules && typeof pluginModules.default === 'function') {
