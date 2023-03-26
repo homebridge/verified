@@ -154,6 +154,7 @@
   "homebridge-http-garage-doors",
   "homebridge-http-iot",
   "homebridge-hubitat-tonesto7",
+  "homebridge-hubspace",
   "homebridge-hue",
   "homebridge-hyundai-bluelink",
   "homebridge-i6-bigassfans",
