@@ -211,6 +211,7 @@
   "homebridge-mqtt",
   "homebridge-mqtt-tasmota",
   "homebridge-mqttthing",
+  "homebridge-musiccast-multiroom",
   "homebridge-music",
   "homebridge-my-wallbox",
   "homebridge-mylink",
