@@ -140,6 +140,7 @@
   "homebridge-gpio-doorbell",
   "homebridge-gpio-rgb-ledstrip",
   "homebridge-gpio-rgbw-ledstrip",
+  "homebridge-green-mountain-grills",
   "homebridge-grohe-sense",
   "homebridge-gsh",
   "homebridge-haieracbridge-platform",
