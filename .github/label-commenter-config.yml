@@ -11,7 +11,7 @@ labels:
           * [x] - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
           * [x] - The plugin must be published to npm and the source code available on GitHub.
           * [x] - GitHub releases should be created for every new version of your plugin, with patch notes.
-          * [x] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node.js v14, v16 and v18.
+          * [x] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node.js v16 and v18.
           * [x] - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
           * [x] - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
@@ -52,7 +52,7 @@ labels:
           * [ ] - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
           * [ ] - The plugin must be published to npm and the source code available on GitHub.
           * [ ] - GitHub releases should be created for every new version of your plugin, with patch notes.
-          * [ ] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node.js v14, v16 and v18.
+          * [ ] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node.js v16 and v18.
           * [ ] - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
           * [ ] - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
