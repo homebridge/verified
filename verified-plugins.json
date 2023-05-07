@@ -266,6 +266,7 @@
   "homebridge-plex-webhooks",
   "homebridge-plugin-govee",
   "homebridge-plugin-update-check",
+  "homebridge-porsche-taycan",
   "homebridge-presence-switch-msgraph",
   "homebridge-presence-switch-slack",
   "homebridge-printer",
