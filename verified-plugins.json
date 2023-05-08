@@ -248,6 +248,7 @@
   "homebridge-owfs",
   "homebridge-p1",
   "homebridge-panasonic-ac-platform",
+  "homebridge-panasonic-miraie-ac-platform",
   "homebridge-pc-volume",
   "homebridge-pentair-intellicenter",
   "homebridge-people-pro",
