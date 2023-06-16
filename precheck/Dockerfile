@@ -1,6 +1,6 @@
 FROM node:lts
 
-RUN apt-get update && apt-get install -y build-essential git python make g++
+RUN apt-get update && apt-get install -y build-essential git python3 make g++
 
 RUN mkdir -p /workspace /results
 
