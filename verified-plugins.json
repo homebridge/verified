@@ -159,6 +159,7 @@
   "homebridge-http-curtain",
   "homebridge-http-garage-doors",
   "homebridge-http-iot",
+  "homebridge-http-leak-sensor",
   "homebridge-hubitat-tonesto7",
   "homebridge-hubspace",
   "homebridge-hue",
