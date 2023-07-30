@@ -33,7 +33,7 @@ labels:
           [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
           ```
 
-          Your plugin is now also eligible to display a *:heart: Donate* button on its tile in the Homebridge UI. See https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links for instructions.
+          Your plugin is now also eligible to display a *:heart: Donate* button on its tile in the Homebridge UI. See https://github.com/homebridge/homebridge/wiki/Donation-Links for instructions.
 
           If for any reason in the future you can no longer maintain your plugin, please consider transferring it to our [unmaintained plugins repo](https://github.com/homebridge/unmaintained-plugins). We can take ownership until another willing developer comes along.
 
