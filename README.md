@@ -24,7 +24,7 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 The Homebridge project team will check that your plugin meets the following criteria:
 
 * The plugin must successfully install.
-* The plugin must implement the [Homebridge Plugin Settings GUI](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Plugin-Settings-GUI).
+* The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
 * The plugin must not start unless it is configured.
 * The plugin must not execute post-install scripts that modify the users' system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
@@ -53,9 +53,9 @@ You may *optionally* add the **Verified By Homebridge** badge to your plugin REA
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
 ```
 
-If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist finding a new owner, or take over the repository until a new maintainer can be found.
+If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist in finding a new owner, or take over the repository until a new maintainer can be found.
 
-Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the **Verified By Homebridge** status of your plugin in favor the new plugin.
+Your plugin may be subject to another review if we notice an increased amount of issues arising from your plugin. If your plugin is unmaintained for some time and is no longer working, and a fork or new plugin offering improved functionality is created, we may remove the **Verified By Homebridge** status of your plugin in favor of the new plugin.
 
 ## Community
 
