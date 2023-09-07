@@ -15,8 +15,8 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 * Have your plugin reviewed by the Homebridge team.
 * Increase the visibility of your plugin.
 * Increase the level of trust end users place in your plugin.
-* The **"*Verified*"** badge will appear next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x).
-* Add a ["Donate"](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links) button on your plugin tile in the Homebridge UI.
+* The **'Verified'** badge will appear next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x).
+* Add a '[**Donate**](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links)' button on your plugin tile in the Homebridge UI.
 * Your plugin is bumped to the top of the search results in the Homebridge UI.
 
 ## Requirements
@@ -26,14 +26,14 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must successfully install.
 * The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
 * The plugin must not start unless it is configured.
-* The plugin must not offer (1) the same or (2) less functionality than that of any existing verified plugin.
-  * If you feel that your plugin should replace the verification status of an existing plugin, let us know and this will be dealt with on an individual basis.
+* The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
+* The plugin must not offer the same nor less functionality than that of any existing verified plugin.
 * The plugin must not execute post-install scripts that modify the users' system in any way.
 * The plugin must not contain any analytics or calls that enable you to track the user.
 * The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 * The plugin must be published to npm and the source code available on GitHub.
-  * A GitHub release - with patch notes - should be created for every new version of your plugin.
-* The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node.js v16 and v18.
+* A GitHub release should be created for every new version of your plugin, with patch notes.
+* The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node.js v18.
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
@@ -41,13 +41,15 @@ The Homebridge project team will check that your plugin meets the following crit
 
 If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues/new/choose) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
 
+If you feel that your plugin should replace the verification status of an existing plugin, let us know and this will be dealt with on an individual basis.
+
 If you need assistance meeting the verification requirements, please reach out on the [Homebridge Discord](https://discord.gg/A7nCjbz).
 
 ## Post Verification
 
-Once your plugin has been verified you will remain in full control of the GitHub repository and npm package. Your plugin will appear on the "Verified By Homebridge" plugin list and the **"*Verified*"** badge will appear next to your plugin when the next update to the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x) is published.
+Once your plugin has been verified you will remain in full control of the GitHub repository and npm package. Your plugin will appear on the 'Verified By Homebridge' plugin list and the '**Verified**' badge will appear next to your plugin when the next update to the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x) is published.
 
-You may *optionally* add the **Verified By Homebridge** badge to your plugin README:
+You may optionally add the **Verified By Homebridge** badge to your plugin's README:
 
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
 
