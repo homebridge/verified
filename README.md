@@ -37,6 +37,8 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
 
+This list may be updated from time to time. Any existing verified plugin will have met the requirements at the time of verification, and not necessarily the current requirements.
+
 ## How To Request Verification
 
 If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues/new/choose) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.

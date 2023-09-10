@@ -32,7 +32,7 @@ class PluginTests {
         + '\n\nComment `/check` to run checks again.'
       await this.addComment(comment);
     }
-    
+
     setTimeout(() => {
       process.exit(0);
     }, 100);
@@ -70,7 +70,7 @@ class PluginTests {
         const pluginName = x.split('/').splice(4).join('/').replace(/[^a-zA-Z0-9@\\/-]/g, '');
         return pluginName;
       });
-    
+
     if (matches.length) {
       return matches[0];
     } else {
