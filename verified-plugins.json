@@ -221,6 +221,7 @@
   "homebridge-moodo",
   "homebridge-mqtt",
   "homebridge-mqtt-tasmota",
+  "homebridge-mqttsmokesensor",
   "homebridge-mqttthing",
   "homebridge-multiswitcheroo",
   "homebridge-musiccast-multiroom",
