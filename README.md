@@ -33,9 +33,11 @@ The Homebridge project team will check that your plugin meets the following crit
 * The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 * The plugin must be published to npm and the source code available on GitHub.
 * A GitHub release should be created for every new version of your plugin, with patch notes.
-* The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node.js v18.
+* The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
 * The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 * If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+
+These verification requirements were last updated on 2023-09-14.
 
 This list may be updated from time to time. Any existing verified plugin will have met the requirements at the time of verification, and not necessarily the current requirements.
 
