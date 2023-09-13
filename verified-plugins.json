@@ -19,6 +19,7 @@
   "homebridge-433-arduino",
   "homebridge-abode-lights",
   "homebridge-abode-lights",
+  "homebridge-actron-neo",
   "homebridge-actron-que",
   "homebridge-adguardhome",
   "homebridge-adt-pulse",
