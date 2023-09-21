@@ -352,6 +352,7 @@
   "homebridge-switch-button",
   "homebridge-switchbot-bluetooth-platform",
   "homebridge-switchbot-for-mac",
+  "homebridge-switchbot-sensor-ble",
   "homebridge-switcher-platform",
   "homebridge-tadiran-ac",
   "homebridge-tado-ac",
