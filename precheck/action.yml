@@ -17,5 +17,5 @@ runs:
   using: 'node16'
   main: 'index.js'
 branding:
-  icon: 'message-square'  
+  icon: 'message-square'
   color: 'gray-dark'
