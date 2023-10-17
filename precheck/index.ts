@@ -39,13 +39,13 @@ class PluginTests {
   }
 
   static async addComment(comment: string) {
-    const octokit = new github.GitHub(core.getInput('token'));
+    const octokit = github.getOctokit(core.getInput('token'));
 
     const repository = process.env.GITHUB_REPOSITORY;
     const repo = repository.split("/");
     core.debug(`repository: ${repository}`);
 
-    await octokit.issues.createComment({
+    await octokit.rest.issues.createComment({
       owner: repo[0],
       repo: repo[1],
       issue_number: parseInt(core.getInput('issue-number'), 10),

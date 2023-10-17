@@ -14,7 +14,7 @@ class CheckHomebridgePlugin {
 
   packageName: string;
   testPath: string;
-    
+
   constructor() {
     this.packageName = process.env.HOMEBRIDGE_PLUGIN_NAME;
   }
@@ -62,7 +62,7 @@ class CheckHomebridgePlugin {
   }
 
   async install() {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
 
       const proc = child_process.spawn('npm', ['install', this.packageName], {
         cwd: this.testPath,

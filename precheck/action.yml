@@ -14,7 +14,7 @@ outputs:
   comment-body:
     description: 'The id of the created comment'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
 branding:
   icon: 'message-square'
