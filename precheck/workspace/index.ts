@@ -16,7 +16,8 @@ class CheckHomebridgePlugin {
   testPath: string;
 
   constructor() {
-    this.packageName = process.env.HOMEBRIDGE_PLUGIN_NAME;
+    this.packageName = process.env.HOMEBRIDGE_PLUGIN_NAME as string;
+    this.testPath = '' as string;
   }
 
   async start() {
@@ -31,7 +32,7 @@ class CheckHomebridgePlugin {
       console.log('Tested Config Schema', this.errors.length)
       await this.testDependencies();
       console.log('Tested Deps', this.errors.length)
-    } catch (e) {
+    } catch (e: any) {
       console.log(e)
       this.errors.push(e.message);
     }
@@ -121,7 +122,7 @@ class CheckHomebridgePlugin {
         // not ok
         this.errors.push('Plugin does not export an initializer function.')
       }
-    } catch (e) {
+    } catch (e: any) {
       this.errors.push(`Failed to import plugin: ${e.message}`)
     }
   }
