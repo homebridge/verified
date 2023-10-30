@@ -146,7 +146,7 @@
   "homebridge-gpio-doorbell",
   "homebridge-gpio-rgb-ledstrip",
   "homebridge-gpio-rgbw-ledstrip",
-  "homebridge-gree-airconditioner",
+  "homebridge-gree-ac",
   "homebridge-green-mountain-grills",
   "homebridge-grohe-sense",
   "homebridge-gsh",
