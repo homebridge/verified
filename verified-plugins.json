@@ -240,6 +240,7 @@
   "homebridge-nest",
   "homebridge-nest-cam",
   "homebridge-network-presence",
+  "homebridge-ngbs-icon-thermostat",
   "homebridge-node-alarm-dot-com",
   "homebridge-noip",
   "homebridge-notifyevents",
