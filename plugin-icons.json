@@ -1,0 +1,12 @@
+{
+  "@switchbot/homebridge-switchbot": "icons/homebridge-switchbot.png",
+  "homebridge-august": "icons/homebridge-august.png",
+  "homebridge-noip": "icons/homebridge-noip.png",
+  "homebridge-rainbird": "icons/homebridge-rainbird.png",
+  "homebridge-resideo": "icons/homebridge-resideo.png",
+  "homebridge-tasmota": "icons/homebridge-tasmota.png",
+  "homebridge-ewelink": "icons/homebridge-ewelink.png",
+  "homebridge-wemo": "icons/homebridge-wemo.png",
+  "homebridge-meross": "icons/homebridge-meross.png",
+  "homebridge-deebot": "icons/homebridge-deebot.png"
+}
