@@ -91,7 +91,7 @@ class CheckHomebridgePlugin {
         // main entrypoint - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_main_entry_point_export
         if (typeof packageJSON.exports === "string") {
           main = packageJSON.exports;
-        } else { // subpath export - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_subpath_exports
+        } else { // sub-path export - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_subpath_exports
           // conditional exports - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_conditional_exports
           const exports = packageJSON.exports.import || packageJSON.exports.require || packageJSON.exports.node || packageJSON.exports.default || packageJSON.exports["."];
 
@@ -112,8 +112,13 @@ class CheckHomebridgePlugin {
       if (!main) {
         main = packageJSON.main || "./index.js";
       }
+
+      // check if it is an ESM module
+      const isESM = main.endsWith('.mjs') || (main.endsWith('.js') && packageJSON.type === 'module');
       const mainPath = path.join(this.testPath, 'node_modules', this.packageName, main);
-      const pluginModules = await _importDynamic(pathToFileURL(mainPath).href)
+
+      const pluginModules = isESM ? await _importDynamic(pathToFileURL(mainPath).href) : require(mainPath);
+
       if (typeof pluginModules === 'function') {
         // ok
       } else if (pluginModules && typeof pluginModules.default === 'function') {

@@ -4,16 +4,12 @@
 
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-
 import * as child_process from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 
 class PluginTests {
   static packageName: string;
-  static testPath: string;
-  static pluginInitializer;
-
   static errors: string[] = [];
 
   static async start() {
@@ -67,8 +63,7 @@ class PluginTests {
       })
       .filter((m) => m)
       .map((x) => {
-        const pluginName = x.split('/').splice(4).join('/').replace(/[^a-zA-Z0-9@\\/-]/g, '');
-        return pluginName;
+        return x.split('/').splice(4).join('/').replace(/[^a-zA-Z0-9@\\/-]/g, '');
       });
 
     if (matches.length) {
