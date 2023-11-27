@@ -1,0 +1,20 @@
+{
+  "@0x5e/homebridge-tuya-platform": "icons/homebridge-tuya-platform.png",
+  "@switchbot/homebridge-switchbot": "icons/homebridge-switchbot.png",
+  "homebridge-alexa": "icons/homebridge-alexa.png",
+  "homebridge-august": "icons/homebridge-august.png",
+  "homebridge-deebot": "icons/homebridge-deebot.png",
+  "homebridge-dyson-pure-cool": "icons/homebridge-dyson-pure-cool.png",
+  "homebridge-ewelink": "icons/homebridge-ewelink.png",
+  "homebridge-govee": "icons/homebridge-goovee.png",
+  "homebridge-lutron-caseta-leap": "icons/homebridge-lutron-caseta-leap.png",
+  "homebridge-meross": "icons/homebridge-meross.png",
+  "homebridge-myq": "icons/homebridge-myq.png",
+  "homebridge-noip": "icons/homebridge-noip.png",
+  "homebridge-rainbird": "icons/homebridge-rainbird.png",
+  "homebridge-resideo": "icons/homebridge-resideo.png",
+  "homebridge-ring": "icons/homebridge-ring.png",
+  "homebridge-sharkiq": "icons/homebridge-sharkiq.png",
+  "homebridge-tasmota": "icons/homebridge-tasmota.png",
+  "homebridge-wemo": "icons/homebridge-wemo.png"
+}
