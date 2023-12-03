@@ -2,6 +2,7 @@
   "@switchbot/homebridge-switchbot": "icons/homebridge-switchbot.png",
   "homebridge-august": "icons/homebridge-august.png",
   "homebridge-deebot": "icons/homebridge-deebot.png",
+  "homebridge-dyson-bp01": "icons/homebridge-dyson-bp01.png",
   "homebridge-ewelink": "icons/homebridge-ewelink.png",
   "homebridge-govee": "icons/homebridge-govee.png",
   "homebridge-meross": "icons/homebridge-meross.png",
