@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please double check the [requirements list](https://github.com/homebridge/verified#requirements) before submitting a request.
+        Please double check the [requirements list](https://github.com/homebridge/verified#requirements) before submitting a request. Please ensure that any icon will not violate any trademark or licensing agreements.
   - type: input
     attributes:
       label: Link To GitHub Repo
@@ -19,3 +19,9 @@ body:
       placeholder: https://www.npmjs.com/package/homebridge-xyz
     validations:
       required: true
+  - type: textarea
+    attributes:
+      label: Plugin Icon (Optional)
+      description: Please attach the icon you would like to use. This must be a square image, around 100px by 100px, and in PNG format.
+    validations:
+      required: false
