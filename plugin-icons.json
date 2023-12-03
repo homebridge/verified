@@ -1,4 +1,5 @@
 {
   "homebridge-ewelink": "icons/homebridge-ewelink.png",
-  "homebridge-govee": "icons/homebridge-govee.png"
+  "homebridge-govee": "icons/homebridge-govee.png",
+  "homebridge-meross": "icons/homebridge-meross.png"
 }
