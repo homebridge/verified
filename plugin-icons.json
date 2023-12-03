@@ -2,5 +2,6 @@
   "homebridge-deebot": "icons/homebridge-deebot.png",
   "homebridge-ewelink": "icons/homebridge-ewelink.png",
   "homebridge-govee": "icons/homebridge-govee.png",
-  "homebridge-meross": "icons/homebridge-meross.png"
+  "homebridge-meross": "icons/homebridge-meross.png",
+  "homebridge-wemo": "icons/homebridge-wemo.png"
 }
