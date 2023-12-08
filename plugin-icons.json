@@ -1,5 +1,6 @@
 {
   "@switchbot/homebridge-switchbot": "icons/homebridge-switchbot.png",
+  "homebridge-airport-express-connected": "icons/homebridge-airport-express-connected.png",
   "homebridge-august": "icons/homebridge-august.png",
   "homebridge-deebot": "icons/homebridge-deebot.png",
   "homebridge-dyson-bp01": "icons/homebridge-dyson-bp01.png",
