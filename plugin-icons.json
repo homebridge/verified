@@ -9,5 +9,6 @@
   "homebridge-noip": "icons/homebridge-noip.png",
   "homebridge-rainbird": "icons/homebridge-rainbird.png",
   "homebridge-resideo": "icons/homebridge-resideo.png",
+  "homebridge-signalk": "icons/homebridge-signalk.png",
   "homebridge-wemo": "icons/homebridge-wemo.png"
 }
