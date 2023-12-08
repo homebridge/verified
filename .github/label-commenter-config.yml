@@ -3,20 +3,22 @@ labels:
     labeled:
       issue:
         body: |
-          * [x] - The plugin must successfully install.
-          * [x] - The plugin must implement the Homebridge Plugin Settings GUI.
-          * [x] - The plugin must not start unless it is configured.
-          * [x] - The plugin must be of type dynamic platform.
-          * [x] - The plugin must not offer the same nor less functionality than that of any existing verified plugin.
-          * [x] - The plugin must not execute post-install scripts that modify the user's system in any way.
-          * [x] - The plugin must not contain any analytics or calls that enable you to track the user.
-          * [x] - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-          * [x] - The plugin must be published to npm and the source code available on GitHub.
-          * [x] - A GitHub release should be created for every new version of your plugin, with patch notes.
-          * [x] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node v18 and v20.
-          * [x] - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-          * [x] - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
-
+          - **General**
+            - [x] The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
+            - [x] The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
+          - **Repo**
+            - [x] The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
+            - [x] A GitHub release should be created for every new version of your plugin, with release notes.
+          - **Environment**
+            - [x] The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
+            - [x] The plugin must successfully install and not start unless it is configured.
+            - [x] The plugin must not execute post-install scripts that modify the users' system in any way.
+            - [x] The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
+          - **Codebase**
+            - [x] The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
+            - [x] The plugin must not contain any analytics or calls that enable you to track the user.
+            - [x] If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+            - [x] The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
           ---
 
           Everything Looks Good!
@@ -54,19 +56,22 @@ labels:
     labeled:
       issue:
         body: |
-          * [ ] - The plugin must successfully install.
-          * [ ] - The plugin must implement the Homebridge Plugin Settings GUI.
-          * [ ] - The plugin must not start unless it is configured.
-          * [ ] - The plugin must be of type dynamic platform.
-          * [ ] - The plugin must not offer the same nor less functionality than that of any existing verified plugin.
-          * [ ] - The plugin must not execute post-install scripts that modify the user's system in any way.
-          * [ ] - The plugin must not contain any analytics or calls that enable you to track the user.
-          * [ ] - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-          * [ ] - The plugin must be published to npm and the source code available on GitHub.
-          * [ ] - A GitHub release should be created for every new version of your plugin, with patch notes.
-          * [ ] - The plugin must run on all Active LTS versions of Node.js, at the time of writing this is Node v18 and v20.
-          * [ ] - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-          * [ ] - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+          - **General**
+            - [ ] The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
+            - [ ] The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
+          - **Repo**
+            - [ ] The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
+            - [ ] A GitHub release should be created for every new version of your plugin, with release notes.
+          - **Environment**
+            - [ ] The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
+            - [ ] The plugin must successfully install and not start unless it is configured.
+            - [ ] The plugin must not execute post-install scripts that modify the users' system in any way.
+            - [ ] The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
+          - **Codebase**
+            - [ ] The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
+            - [ ] The plugin must not contain any analytics or calls that enable you to track the user.
+            - [ ] If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+            - [ ] The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 
           ---
 

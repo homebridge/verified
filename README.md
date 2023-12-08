@@ -24,21 +24,24 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 
 The Homebridge project team will check that your plugin meets the following criteria:
 
-* The plugin must successfully install.
-* The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
-* The plugin must not start unless it is configured.
-* The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
-* The plugin must not offer the same nor less functionality than that of any existing verified plugin.
-* The plugin must not execute post-install scripts that modify the users' system in any way.
-* The plugin must not contain any analytics or calls that enable you to track the user.
-* The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-* The plugin must be published to npm and the source code available on GitHub.
-* A GitHub release should be created for every new version of your plugin, with patch notes.
-* The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
-* The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-* If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+- **General**
+  - The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
+  - The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
+- **Repo**
+  - The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
+  - A GitHub release should be created for every new version of your plugin, with release notes.
+- **Environment**
+  - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
+  - The plugin must successfully install and not start unless it is configured.
+  - The plugin must not execute post-install scripts that modify the users' system in any way.
+  - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
+- **Codebase**
+  - The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
+  - The plugin must not contain any analytics or calls that enable you to track the user.
+  - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+  - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
 
-These verification requirements were last updated on 2023-09-14. Existing verified plugins will have met the requirements at the time of verification, and not necessarily the current requirements.
+These verification requirements were last updated on 2023-12-08. Existing verified plugins will have met the requirements at the time of verification, and not necessarily the current requirements.
 
 ## How To Request Verification
 
