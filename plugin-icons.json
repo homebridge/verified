@@ -17,5 +17,6 @@
   "homebridge-resideo": "icons/homebridge-resideo.png",
   "homebridge-signalk": "icons/homebridge-signalk.png",
   "homebridge-sinricpro": "icons/homebridge-sinricpro.png",
-  "homebridge-wemo": "icons/homebridge-wemo.png"
+  "homebridge-wemo": "icons/homebridge-wemo.png",
+  "homebridge-zp": "icons/homebridge-zp.png"
 }
