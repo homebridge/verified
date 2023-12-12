@@ -21,6 +21,7 @@
   "homebridge-rpi": "icons/homebridge-rpi.png",
   "homebridge-signalk": "icons/homebridge-signalk.png",
   "homebridge-sinricpro": "icons/homebridge-sinricpro.png",
+  "homebridge-ups": "icons/homebridge-ups.png",
   "homebridge-wemo": "icons/homebridge-wemo.png",
   "homebridge-zp": "icons/homebridge-zp.png"
 }
