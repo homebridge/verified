@@ -3,20 +3,19 @@ on:
   issue_comment:
     types: [created]
 
-
 jobs:
   review_add_label:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.event.comment.body, '/check') }}
         with:
-          labels: pending-review      
+          labels: pending-review
   review_remove_labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-remove-labels@v1
         if: ${{ startsWith(github.event.comment.body, '/check') }}
         with:
