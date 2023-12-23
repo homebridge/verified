@@ -1,4 +1,5 @@
-name: "Set Issue Label"
+name: Set Issue Label
+
 on:
   issue_comment:
     types: [created]
