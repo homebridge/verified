@@ -1,4 +1,5 @@
 {
+  "@0x5e/homebridge-tuya-platform": "icons/homebridge-tuya-platform.png",
   "@switchbot/homebridge-switchbot": "icons/homebridge-switchbot.png",
   "homebridge-aeg-robot": "icons/homebridge-aeg-robot.png",
   "homebridge-airport-express-connected": "icons/homebridge-airport-express-connected.png",
