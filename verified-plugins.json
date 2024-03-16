@@ -91,6 +91,7 @@
   "homebridge-dahua-alerts",
   "homebridge-daikin-cloud",
   "homebridge-daikin-local",
+  "homebridge-daikin-local-platform",
   "homebridge-daikin-oneplus",
   "homebridge-daikin-smart-ac",
   "homebridge-daikin-tempsensor-nocloud",
