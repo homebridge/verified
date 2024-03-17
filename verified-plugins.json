@@ -169,6 +169,7 @@
   "homebridge-homekit-control",
   "homebridge-homeqtt-alarm",
   "homebridge-homewizard-energy-socket",
+  "homebridge-homewizard-power-consumption",
   "homebridge-homeworks",
   "homebridge-http-curtain",
   "homebridge-http-garage-doors",
