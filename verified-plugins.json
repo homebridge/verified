@@ -294,6 +294,7 @@
   "homebridge-platform-maxcube",
   "homebridge-platform-orbit",
   "homebridge-playstation",
+  "homebridge-playstation-game-title",
   "homebridge-plex-webhooks",
   "homebridge-plugin-govee",
   "homebridge-plugin-update-check",
