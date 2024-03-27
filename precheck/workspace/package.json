@@ -1,11 +1,11 @@
 {
-  "private": true,
   "name": "check",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "index.js",
   "author": "",
   "license": "ISC",
+  "main": "index.js",
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.30",

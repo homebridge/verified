@@ -1,33 +1,9 @@
 labels:
-  - name: reviewed
-    labeled:
-      issue:
-        body: |
-          - **General**
-            - [x] The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
-            - [x] The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
-          - **Repo**
-            - [x] The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
-            - [x] A GitHub release should be created for every new version of your plugin, with release notes.
-          - **Environment**
-            - [x] The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18 and v20.
-            - [x] The plugin must successfully install and not start unless it is configured.
-            - [x] The plugin must not execute post-install scripts that modify the users' system in any way.
-            - [x] The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-          - **Codebase**
-            - [x] The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
-            - [x] The plugin must not contain any analytics or calls that enable you to track the user.
-            - [x] If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
-            - [x] The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-          ---
-
-          Everything Looks Good!
-        action: open
   - name: verified
     labeled:
       issue:
         body: |
-          Congratulations! Your plugin has been verified.
+          Congratulations! Your plugin has been verified!
 
           You can now add one of the *Verified by Homebridge* badges to your plugin's README:
 
@@ -36,9 +12,9 @@ labels:
           ```
           [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
           ```
-          
+
           [![verified-by-homebridge](https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=for-the-badge&logoColor=%23FFFFFF&logo=homebridge)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-  
+
           ```
           [![verified-by-homebridge](https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=for-the-badge&logoColor=%23FFFFFF&logo=homebridge)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
           ```
@@ -49,13 +25,16 @@ labels:
 
           Don't forget to join the official [Homebridge Discord server](https://discord.gg/A7nCjbz), where plugin developers can get tips and advice from other developers and the Homebridge project team in the #plugin-development channel!
 
-          Thank you for your contribution to the Homebridge Community.
-          https://homebridge.io
+          As a verified plugin, you can request a channel in the Discord server to discuss your plugin with users and other developers. Just ask in the #plugin-development channel.
+
+          Thank you for your contribution to the Homebridge community.
+
+          - The Homebridge Team
         action: open
   - name: currently-reviewing
     labeled:
       issue:
-        body: |
+        body: >
           - **General**
             - [ ] The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
             - [ ] The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
@@ -72,13 +51,4 @@ labels:
             - [ ] The plugin must not contain any analytics or calls that enable you to track the user.
             - [ ] If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
             - [ ] The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
-
-          ---
-
-          ```
-
-          ```
-          
-          ---
-          #### Comment `/check` to run checks again.
         action: open

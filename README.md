@@ -12,13 +12,13 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 
 ## Benefits
 
-* Have your plugin reviewed by the Homebridge team.
-* Increase the visibility of your plugin.
-* Increase the level of trust end users place in your plugin.
-* The **Verified** shield icon will turn green next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x).
-* The [**Donate**](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links) heart icon will turn pink and enable on your plugin tile in the Homebridge UI.
-* Your plugin is bumped to the top of the search results in the Homebridge UI.
-* You can optionally upload an icon for your plugin which will be displayed in the Homebridge UI.
+- Have your plugin reviewed by the Homebridge team.
+- Increase the visibility of your plugin.
+- Increase the level of trust end users place in your plugin.
+- The **Verified** shield icon will turn green next to your plugin in the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x).
+- The [**Donate**](https://github.com/oznu/homebridge-config-ui-x/wiki/Developers:-Donation-Links) heart icon will turn pink and enable on your plugin tile in the Homebridge UI.
+- Your plugin is bumped to the top of the search results in the Homebridge UI.
+- You can optionally upload an icon for your plugin which will be displayed in the Homebridge UI.
 
 ## Requirements
 
@@ -95,4 +95,4 @@ We will generally do our best to contact existing developers of plugins before r
 
 ## Credits
 
-- Thanks to [@hjdhjd](https://github.com/hjdhjd) for the *for-the-badge* style badge!
+- Thanks to [@hjdhjd](https://github.com/hjdhjd) for the _for-the-badge_ style badge!

@@ -1,11 +1,11 @@
 name: Plugin Icon Request
 description: Request an icon for your verified plugin
-title: "Plugin Icon Request"
+title: Plugin Icon Request
 body:
   - type: markdown
     attributes:
       value: |
-        Icons can only be request by the developer of the verified plugin. Please ensure that it will not violate any trademark or licensing agreements.
+        Icons can only be request by the developer of the verified plugin.
   - type: input
     attributes:
       label: Link To NPM Package
@@ -15,6 +15,8 @@ body:
   - type: textarea
     attributes:
       label: Plugin Icon
-      description: Please attach the icon you would like to use. This must be a square image, around 100px by 100px, and in PNG format.
+      description: Please attach the icon you would like to use. This must be a square
+        image, around 100px by 100px, and in PNG format. Please ensure that it
+        will not violate any trademark or licensing agreements.
     validations:
       required: true

@@ -2,110 +2,115 @@
  * This is a quick script to do some basic checks on Homebridge plugins
  */
 
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import * as child_process from 'child_process';
-import * as path from 'path';
-import * as fs from 'fs-extra';
+import { execSync } from 'node:child_process'
+import { resolve } from 'node:path'
+import * as process from 'node:process'
+
+import { debug, getInput } from '@actions/core'
+import { getOctokit } from '@actions/github'
+import { mkdirp, pathExists, readJson } from 'fs-extra'
 
 class PluginTests {
-  static packageName: string;
-  static errors: string[] = [];
+  static pluginName: string
+  static errors: string[] = []
 
   static async start() {
     try {
-      this.packageName = this.extractPluginNameFromIssue();
-      await this.runTests();
+      // Plugin name is found from the title of the issue
+      const pluginName = getInput('plugin', { required: true })
+      console.log('*****************************')
+      console.log(`Running pre-checks for plugin: ${pluginName}.`)
+      console.log('*****************************')
+      if (pluginName) {
+        this.pluginName = pluginName
+        await this.runTests()
+      } else {
+        throw new Error('Could not determine plugin name.')
+      }
     } catch (e) {
-      this.errors.push(e.message);
+      this.errors.push(e.message)
     }
 
     if (!this.errors.length) {
-      await this.addComment(':white_check_mark: Pre-checks completed successfully.');
+      await this.addComment(true, ':white_check_mark: Pre-checks completed successfully.')
     } else {
-      const comment = `The following pre-checks failed:\n\n` +
-        this.errors.map((e) => { return ':x: ' + e; }).join('\n')
-        + '\n\nComment `/check` to run checks again.'
-      await this.addComment(comment);
+      const comment = `The following pre-checks failed:\n\n${
+        this.errors.map((e) => {
+          return `:x: ${e}`
+        }).join('\n')
+         }\n\nComment \`/check\` to run checks again.`
+      await this.addComment(false, comment)
     }
 
     setTimeout(() => {
-      process.exit(0);
-    }, 100);
+      process.exit(0)
+    }, 100)
   }
 
-  static async addComment(comment: string) {
-    const octokit = github.getOctokit(core.getInput('token'));
+  static async addComment(successful: boolean, comment: string) {
+    const octokit = getOctokit(getInput('token'))
 
-    const repository = process.env.GITHUB_REPOSITORY;
-    const repo = repository.split("/");
-    core.debug(`repository: ${repository}`);
+    const repository = process.env.GITHUB_REPOSITORY
+    const repo = repository.split('/')
+    debug(`repository: ${repository}`)
 
-    await octokit.rest.issues.createComment({
-      owner: repo[0],
-      repo: repo[1],
-      issue_number: parseInt(core.getInput('issue-number'), 10),
-      body: comment,
-    });
-  }
+    const issueNumber = getInput('issue-number')
 
-  static extractPluginNameFromIssue(): string {
-    const issueBody = core.getInput('body');
-    if (!issueBody) {
-      throw new Error('Could not determine plugin name.');
-    }
-    const matches = issueBody.split('\n')
-      .map((line) => {
-        const match = line ? line.match(/(https?:\/\/.[^ ]*)/gi) : null
-        if (match) {
-          return match.find((x) => x.includes('npmjs.com/package'));
-        }
+    // We will have an issue number if this is running as a GH action from an issue
+    // Otherwise this will be running from a scheduled action to spot-check already-verifed plugins
+    if (issueNumber) {
+      await octokit.rest.issues.createComment({
+        owner: repo[0],
+        repo: repo[1],
+        issue_number: Number.parseInt(issueNumber, 10),
+        body: comment,
       })
-      .filter((m) => m)
-      .map((x) => {
-        return x.split('/').splice(4).join('/').replace(/[^a-zA-Z0-9@\\/-]/g, '');
-      });
-
-    if (matches.length) {
-      return matches[0];
     } else {
-      throw new Error('Could not determine plugin name.');
+      if (successful) {
+        console.log('************************')
+        console.log(`Checks passed for plugin ${this.pluginName}`)
+        console.log('************************')
+      } else {
+        console.log('************************')
+        console.error(`Checks failed for plugin ${this.pluginName}:\n ${comment}`)
+        console.log('************************')
+        process.exit(1)
+      }
     }
   }
 
   static async runTests() {
     // create container
     try {
-      child_process.execSync('docker build -t check .', {
+      execSync('docker build -t check .', {
         cwd: __dirname,
-        stdio: 'inherit'
-      });
+        stdio: 'inherit',
+      })
     } catch (e) {
       this.errors.push('Failed to test plugin.', e.message)
-      return;
+      return
     }
 
-    const resultsPath = path.resolve(__dirname, 'results');
-    const errorResultPath = path.resolve(resultsPath, 'error.json');
+    const resultsPath = resolve(__dirname, 'results')
+    const errorResultPath = resolve(resultsPath, 'error.json')
 
-    await fs.mkdirp(resultsPath);
+    await mkdirp(resultsPath)
 
     // run tests
     try {
-      child_process.execSync(`docker run --rm -e HOMEBRIDGE_PLUGIN_NAME=${this.packageName} -v ${resultsPath}:/results check`, {
+      execSync(`docker run --rm -e HOMEBRIDGE_PLUGIN_NAME=${this.pluginName} -v ${resultsPath}:/results check`, {
         cwd: __dirname,
-        stdio: 'inherit'
-      });
+        stdio: 'inherit',
+      })
     } catch (e) {
-      if (await fs.pathExists(errorResultPath)) {
-        const pluginErrors = await fs.readJson(errorResultPath);
-        this.errors.push(...pluginErrors);
+      if (await pathExists(errorResultPath)) {
+        const pluginErrors = await readJson(errorResultPath)
+        this.errors.push(...pluginErrors)
       } else {
         this.errors.push('Failed to test plugin.', e.message)
       }
     }
   }
-
 }
 
-PluginTests.start();
+PluginTests.start()
