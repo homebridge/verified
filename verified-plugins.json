@@ -15,6 +15,7 @@
   "@rsauget/homebridge-flexom",
   "@string-bean/homebridge-drayton-wiser",
   "@switchbot/homebridge-switchbot",
+  "@ubreu/homebridge-helios-kwl",
   "@ubreu/homebridge-ibricks",
   "homebridge-3em-energy-meter",
   "homebridge-433-arduino",
