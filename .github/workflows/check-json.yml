@@ -1,15 +1,17 @@
-name: Validate JSON
-
+name: Check JSON
 on:
   push:
-    branches: [latest]
+    branches:
+      - latest
   pull_request:
-    branches: [latest]
-
+    branches:
+      - latest
 jobs:
   check-json:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: cat verified-plugins.json | jq type
+      - run: cat verified-plus-plugins.json | jq type
+      - run: cat hidden-plugins.json | jq type
       - run: cat plugin-icons.json | jq type

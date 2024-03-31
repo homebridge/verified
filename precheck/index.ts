@@ -2,110 +2,177 @@
  * This is a quick script to do some basic checks on Homebridge plugins
  */
 
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import * as child_process from 'child_process';
-import * as path from 'path';
-import * as fs from 'fs-extra';
+import { execSync } from 'node:child_process'
+import { resolve } from 'node:path'
+import * as process from 'node:process'
+
+import { debug, getInput } from '@actions/core'
+import { getOctokit } from '@actions/github'
+import { mkdirp, pathExists, readJson } from 'fs-extra'
 
 class PluginTests {
-  static packageName: string;
-  static errors: string[] = [];
+  static pluginName: string
+  static passed: string[] = []
+  static failed: string[] = []
 
   static async start() {
     try {
-      this.packageName = this.extractPluginNameFromIssue();
-      await this.runTests();
+      const pluginName = getInput('plugin', { required: true })
+      console.log('******************************')
+      console.log(`Running pre-checks for plugin: ${pluginName}.`)
+      console.log('******************************')
+      if (pluginName) {
+        this.pluginName = pluginName
+        await this.runTests()
+      } else {
+        throw new Error('Could not determine plugin name.')
+      }
     } catch (e) {
-      this.errors.push(e.message);
+      this.failed.push(e.message)
     }
 
-    if (!this.errors.length) {
-      await this.addComment(':white_check_mark: Pre-checks completed successfully.');
-    } else {
-      const comment = `The following pre-checks failed:\n\n` +
-        this.errors.map((e) => { return ':x: ' + e; }).join('\n')
-        + '\n\nComment `/check` to run checks again.'
-      await this.addComment(comment);
+    // Construct the comment
+    let comment: string = ''
+    let allPassed: boolean = true
+
+    if (this.failed.length) {
+      comment += '🔴 The following pre-checks failed:\n\n'
+      comment += this.failed.map((e) => `- ${e}`).join('\n')
+      comment += '\n\n---\n\n'
     }
+
+    if (this.passed.length) {
+      comment += '🟢 The following pre-checks passed:\n\n'
+      comment += this.passed.map((e) => `- ${e}`).join('\n')
+      comment += '\n\n---\n\n'
+    }
+
+    if (this.passed.length && !this.failed.length) {
+      comment += '🎉 All pre-checks passed successfully, nice work! Your plugin and/or icon will now be manually reviewed by the Homebridge team.'
+    } else {
+      allPassed = false
+      comment += '⚠️ Please action these failures and then comment `/check` to run the checks again. Let us know if you need any help.\n\n'
+      comment += 'If updating your `package.json` and `config.schema.json` files, don\'t forget to publish a new version to NPM.'
+    }
+
+    await this.addComment(allPassed, comment)
 
     setTimeout(() => {
-      process.exit(0);
-    }, 100);
+      process.exit(0)
+    }, 100)
   }
 
-  static async addComment(comment: string) {
-    const octokit = github.getOctokit(core.getInput('token'));
+  static async addComment(successful: boolean, comment: string) {
+    const octokit = getOctokit(getInput('token'))
 
-    const repository = process.env.GITHUB_REPOSITORY;
-    const repo = repository.split("/");
-    core.debug(`repository: ${repository}`);
+    const repository = process.env.GITHUB_REPOSITORY
+    const repo = repository.split('/')
+    debug(`repository: ${repository}`)
 
-    await octokit.rest.issues.createComment({
-      owner: repo[0],
-      repo: repo[1],
-      issue_number: parseInt(core.getInput('issue-number'), 10),
-      body: comment,
-    });
-  }
+    const issueNumber = getInput('issue-number')
 
-  static extractPluginNameFromIssue(): string {
-    const issueBody = core.getInput('body');
-    if (!issueBody) {
-      throw new Error('Could not determine plugin name.');
-    }
-    const matches = issueBody.split('\n')
-      .map((line) => {
-        const match = line ? line.match(/(https?:\/\/.[^ ]*)/gi) : null
-        if (match) {
-          return match.find((x) => x.includes('npmjs.com/package'));
-        }
+    // We will have an issue number if this is running as a GH action from an issue
+    // Otherwise this will be running from a scheduled action to spot-check already-verified plugins
+    if (issueNumber) {
+      const restParams = {
+        owner: repo[0],
+        repo: repo[1],
+        issue_number: Number.parseInt(issueNumber, 10)
+      }
+
+      // Add a comment to the issue
+      await octokit.rest.issues.createComment({
+        ...restParams,
+        body: comment,
       })
-      .filter((m) => m)
-      .map((x) => {
-        return x.split('/').splice(4).join('/').replace(/[^a-zA-Z0-9@\\/-]/g, '');
-      });
 
-    if (matches.length) {
-      return matches[0];
+      // Get the labels for the issue
+      const labels = await octokit.rest.issues.listLabelsOnIssue({
+        ...restParams,
+      })
+
+      if (successful) {
+        // Add the `pending` label to the issue if it doesn't already have it
+        if (!labels.data.find((label) => label.name === 'pending')) {
+          await octokit.rest.issues.addLabels({
+            ...restParams,
+            labels: ['pending'],
+          })
+        }
+
+        // Remove `awaiting-changes` label if it exists
+        if (labels.data.find((label) => label.name === 'awaiting-changes')) {
+          await octokit.rest.issues.removeLabel({
+            ...restParams,
+            name: 'awaiting-changes',
+          })
+        }
+      } else {
+        // Add the `awaiting-changes` label to the issue if it doesn't already have it
+        if (!labels.data.find((label) => label.name === 'awaiting-changes')) {
+          await octokit.rest.issues.addLabels({
+            ...restParams,
+            labels: ['awaiting-changes'],
+          })
+        }
+
+        // Remove `pending` label if it exists
+        if (labels.data.find((label) => label.name === 'pending')) {
+          await octokit.rest.issues.removeLabel({
+            ...restParams,
+            name: 'pending',
+          })
+        }
+      }
     } else {
-      throw new Error('Could not determine plugin name.');
+      if (successful) {
+        console.log('****************************')
+        console.log(`Checks passed for plugin: ${this.pluginName}`)
+        console.log('****************************')
+      } else {
+        console.log('****************************')
+        console.error(`Checks failed for plugin: ${this.pluginName}:\n ${comment}`)
+        console.log('****************************')
+        process.exit(1)
+      }
     }
   }
 
   static async runTests() {
     // create container
     try {
-      child_process.execSync('docker build -t check .', {
+      execSync('docker build -t check .', {
         cwd: __dirname,
-        stdio: 'inherit'
-      });
+        stdio: 'inherit',
+      })
     } catch (e) {
-      this.errors.push('Failed to test plugin.', e.message)
-      return;
+      this.failed.push(`Failed to create container as ${e.message}`)
+      return
     }
 
-    const resultsPath = path.resolve(__dirname, 'results');
-    const errorResultPath = path.resolve(resultsPath, 'error.json');
+    const resultsPath = resolve(__dirname, 'results')
+    const checksJsonFile = resolve(resultsPath, 'results.json')
 
-    await fs.mkdirp(resultsPath);
+    await mkdirp(resultsPath)
 
     // run tests
     try {
-      child_process.execSync(`docker run --rm -e HOMEBRIDGE_PLUGIN_NAME=${this.packageName} -v ${resultsPath}:/results check`, {
+      execSync(`docker run --rm -e HOMEBRIDGE_PLUGIN_NAME=${this.pluginName} -v ${resultsPath}:/results check`, {
         cwd: __dirname,
-        stdio: 'inherit'
-      });
+        stdio: 'inherit',
+      })
     } catch (e) {
-      if (await fs.pathExists(errorResultPath)) {
-        const pluginErrors = await fs.readJson(errorResultPath);
-        this.errors.push(...pluginErrors);
-      } else {
-        this.errors.push('Failed to test plugin.', e.message)
-      }
+      console.error(`Failed to test plugin as ${e.message}`)
+    }
+
+    if (await pathExists(checksJsonFile)) {
+      const checksJson = await readJson(checksJsonFile) as { passed: string[], failed: string[] }
+      this.passed.push(...checksJson.passed)
+      this.failed.push(...checksJson.failed)
+    } else {
+      this.failed.push('JSON results file not found')
     }
   }
-
 }
 
-PluginTests.start();
+PluginTests.start()

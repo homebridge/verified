@@ -1,32 +1,32 @@
 {
-  "private": true,
   "name": "@homebridge/verified",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "private": true,
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/homebridge/verified#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/homebridge/verified.git"
+  },
+  "bugs": {
+    "url": "https://github.com/homebridge/verified/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test-plugin": "ts-node precheck.ts",
     "install": "tsc index.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/homebridge/verified.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/homebridge/verified/issues"
-  },
-  "homepage": "https://github.com/homebridge/verified#readme",
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
     "fs-extra": "^11.2.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.12.5"
   }
 }

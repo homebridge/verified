@@ -1,21 +1,21 @@
-name: 'Homebridge Plugin Check'
-description: 'Basic validation of Homebridge plugins'
+name: Homebridge Plugin Pre-Checks
+description: Check if a Homebridge plugin meets the minimum requirements for the Homebridge Verified program.
 inputs:
   token:
-    description: 'GITHUB_TOKEN or a repo scoped PAT.'
+    description: GITHUB_TOKEN or a repo scoped PAT.
     default: ${{ github.token }}
-  body:
-    description: 'The created issue body.'
-    default: ${{ github.event.issue.body }}
+  plugin:
+    description: The name of the plugin to check.
+    required: true
   issue-number:
-    description: 'The issue number to comment on.'
+    description: The issue number to comment on.
     default: ${{ github.event.issue.number }}
 outputs:
   comment-body:
-    description: 'The id of the created comment'
+    description: The id of the created comment
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: node20
+  main: index.js
 branding:
-  icon: 'message-square'
-  color: 'gray-dark'
+  icon: message-square
+  color: gray-dark

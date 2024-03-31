@@ -1,0 +1,38 @@
+name: Plugin Pre-Checks (Request)
+on:
+  workflow_dispatch:
+    inputs:
+      plugin:
+        description: Plugin Name
+        required: true
+        type: string
+  issues:
+    types:
+      - opened
+  issue_comment:
+    types:
+      - created
+jobs:
+  check-plugin:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' || (github.event_name == 'issue_comment' &&
+      github.event.comment.body == '/check') || (github.event_name == 'workflow_dispatch' &&
+        inputs.plugin)
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm install --prefix precheck
+      - name: Extract Plugin Name
+        id: extract
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            PLUGIN_NAME=${{ github.event.inputs.plugin }}
+          else
+            BODY="${{ github.event.issue.body }}"
+            PLUGIN_NAME=$(echo "$BODY" | awk 'NR==3' | tr -d ' ')
+          fi
+          echo "PLUGIN_NAME=$PLUGIN_NAME" >> $GITHUB_ENV
+      - name: Check Plugin
+        uses: ./precheck
+        with:
+          plugin: ${{ env.PLUGIN_NAME }}

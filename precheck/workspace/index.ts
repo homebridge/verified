@@ -2,172 +2,369 @@
  * Checks the Homebridge plugin in a Docker container
  */
 
-import * as child_process from 'child_process';
-import * as path from 'path';
-import * as fs from 'fs-extra';
-import { pathToFileURL } from "url";
+import { spawn } from 'node:child_process'
+import { join, resolve } from 'node:path'
+import * as process from 'node:process'
+import { pathToFileURL } from 'node:url'
 
-const _importDynamic = new Function("modulePath", "return import(modulePath)");
+import { mkdirp, pathExists, readJson, remove, writeJson } from 'fs-extra'
+import { satisfies } from 'semver'
+import { request } from 'undici'
+
+const _importDynamic = new Function('modulePath', 'return import(modulePath)')
 
 class CheckHomebridgePlugin {
-  errors: string[] = [];
+  failed: string[] = []
+  passed: string[] = []
 
-  packageName: string;
-  testPath: string;
+  packageName: string
+  testPath: string
+  gitHubRepo: string
+  gitHubAuthor: string
 
   constructor() {
-    this.packageName = process.env.HOMEBRIDGE_PLUGIN_NAME as string;
-    this.testPath = '' as string;
+    this.packageName = process.env.HOMEBRIDGE_PLUGIN_NAME as string
+    this.testPath = '' as string
+    this.gitHubRepo = '' as string
+    this.gitHubAuthor = '' as string
   }
 
   async start() {
     try {
-      await this.createTestArea();
-      console.log('Created Test Area', this.errors.length)
-      await this.install();
-      console.log('Installed Plugin', this.errors.length)
-      await this.testImport();
-      console.log('Tested Import', this.errors.length)
-      await this.testConfigSchema();
-      console.log('Tested Config Schema', this.errors.length)
-      await this.testDependencies();
-      console.log('Tested Deps', this.errors.length)
+      await this.createTestArea()
+      console.log('Created Test Area', this.failed.length)
+      await this.install()
+      console.log('Installed Plugin', this.failed.length)
+      await this.testPkgJson()
+      console.log('Tested Package JSON', this.failed.length)
+      if (this.gitHubRepo && this.gitHubAuthor) {
+        await this.testGibHubRepo()
+        console.log('Tested GitHub Repository', this.failed.length)
+      } else {
+        console.log('Skipped Testing GitHub Repository')
+      }
+      await this.testNpmPackage()
+      console.log('Tested NPM Package', this.failed.length)
+      await this.testConfigSchema()
+      console.log('Tested Config Schema', this.failed.length)
+      await this.testDependencies()
+      console.log('Tested Dependencies', this.failed.length)
     } catch (e: any) {
       console.log(e)
-      this.errors.push(e.message);
+      this.failed.push(e.message)
     }
 
-    if (this.errors.length) {
-      console.log(this.errors);
-      await fs.writeJson('/results/error.json', this.errors);
-      process.exit(1)
-    } else {
-      process.exit(0);
-    }
+    await writeJson('/results/results.json', {
+      failed: this.failed,
+      passed: this.passed,
+    })
+
+    process.exit(this.failed.length ? 1 : 0)
   }
 
   async createTestArea() {
-    this.testPath = path.resolve(__dirname, 'test-area');
+    this.testPath = resolve(__dirname, 'test-area')
 
-    if (await fs.pathExists(this.testPath)) {
-      await fs.remove(this.testPath);
+    if (await pathExists(this.testPath)) {
+      await remove(this.testPath)
     }
 
-    await fs.mkdirp(this.testPath);
-    await fs.writeJson(path.join(this.testPath, 'package.json'), {
+    await mkdirp(this.testPath)
+    await writeJson(join(this.testPath, 'package.json'), {
       private: true,
       name: 'test-area',
       description: 'n/a',
-      version: '0.0.0'
-    }, { spaces: 4 });
+      version: '0.0.0',
+    }, { spaces: 4 })
   }
 
   async install() {
     return new Promise<void>((resolve, reject) => {
-
-      const proc = child_process.spawn('npm', ['install', this.packageName], {
+      const proc = spawn('npm', ['install', this.packageName], {
         cwd: this.testPath,
-        stdio: 'inherit'
-      });
+        stdio: 'inherit',
+      })
 
       proc.on('close', (code) => {
         if (code === 0) {
-          resolve();
+          this.passed.push('Installation: successfully installed')
+          resolve()
         } else {
-          reject(new Error('Failed to install.'));
+          this.failed.push(`Installation: failed to install [${code}]`)
+          reject(new Error('Failed to install'))
         }
-      });
-    });
+      })
+    })
   }
 
-  async testImport() {
+  async testPkgJson() {
     try {
-      const packageJSON = await fs.readJson(path.join(this.testPath, 'node_modules', this.packageName, 'package.json'));
-      let main = '';
+      const packageJSON = await readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
+
+      // Validate repository: it should exist and contain a URL
+      if (packageJSON.repository && packageJSON.repository.url) {
+        this.passed.push('Package JSON: `repository.url` property exists')
+      } else {
+        this.failed.push('Package JSON: `repository.url` missing')
+      }
+
+      // Validate bugs: it should exist and contain a URL
+      if (packageJSON.bugs && packageJSON.bugs.url) {
+        const parts = packageJSON.bugs.url.split('/')
+        parts.pop()
+        this.gitHubRepo = parts.pop()
+        this.gitHubAuthor = parts.pop()
+        this.passed.push('Package JSON: `bugs.url` exists')
+      } else {
+        this.failed.push('Package JSON: `bugs.url` missing')
+      }
+
+      // Validate keywords: it should exist, contain 'homebridge-plugin' and have more besides that
+      if (Array.isArray(packageJSON.keywords)) {
+        const keywords = packageJSON.keywords as string[]
+        if (keywords.includes('homebridge-plugin')) {
+          if (keywords.length > 1) {
+            this.passed.push('Package JSON: `keywords` exist and contain `\'homebridge-plugin\'`')
+          } else {
+            this.failed.push('Package JSON: more `keywords` apart from `\'homebridge-plugin\'` should exist')
+          }
+        } else {
+          this.failed.push('Package JSON: `\'homebridge-plugin\'` in `keywords` missing')
+        }
+      } else {
+        this.failed.push('Package JSON: `keywords` property missing')
+      }
+
+      // Validate scripts: no `preinstall`, `install` and `postinstall` scripts should be present
+      if (typeof packageJSON.scripts === 'object') {
+        if (packageJSON.scripts.preinstall) {
+          this.failed.push('Package JSON: `\'preinstall\'` in `scripts` is not allowed')
+        } else {
+          this.passed.push('Package JSON: `\'preinstall\'` in `scripts` is not present')
+        }
+        if (packageJSON.scripts.install) {
+          this.failed.push('Package JSON: `\'install\'` in `scripts` is not allowed')
+        } else {
+          this.passed.push('Package JSON: `\'install\'` in `scripts` is not present')
+        }
+        if (packageJSON.scripts.postinstall) {
+          this.failed.push('Package JSON: `\'postinstall\'` in `scripts` is not allowed')
+        } else {
+          this.passed.push('Package JSON: `\'postinstall\'` in `scripts` is not present')
+        }
+      }
+
+      // Validate engine versions
+      if (packageJSON.engines) {
+        if (packageJSON.engines.node) {
+          if (satisfies('18.20.1', packageJSON.engines.node)) {
+            this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
+          } else {
+            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
+          }
+          if (satisfies('20.12.0', packageJSON.engines.node)) {
+            this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
+          } else {
+            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
+          }
+        } else {
+          // ok
+        }
+        if (packageJSON.engines.homebridge) {
+          if (satisfies('1.7.0', packageJSON.engines.homebridge)) {
+            this.passed.push('Package JSON: `engines.homebridge` property is compatible with Homebridge 1.7.0')
+          } else {
+            this.failed.push('Package JSON: `engines.homebridge` property is not compatible with Homebridge 1.7.0')
+          }
+        } else {
+          this.failed.push('Package JSON: `engines.homebridge` property missing')
+        }
+      } else {
+        this.failed.push('Package JSON: `engines` property missing')
+      }
+
+      // Check if the plugin exports an initializer function
+      let main = ''
 
       // figure out the main module
       // exports is available - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_package_entry_points
       if (packageJSON.exports) {
         // main entrypoint - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_main_entry_point_export
-        if (typeof packageJSON.exports === "string") {
-          main = packageJSON.exports;
+        if (typeof packageJSON.exports === 'string') {
+          main = packageJSON.exports
         } else { // sub-path export - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_subpath_exports
           // conditional exports - https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_conditional_exports
-          const exports = packageJSON.exports.import || packageJSON.exports.require || packageJSON.exports.node || packageJSON.exports.default || packageJSON.exports["."];
+          const exports = packageJSON.exports.import || packageJSON.exports.require || packageJSON.exports.node || packageJSON.exports.default || packageJSON.exports['.']
 
           // check if conditional export is nested
-          if (typeof exports !== "string") {
-            if(exports.import) {
-              main = exports.import;
+          if (typeof exports !== 'string') {
+            if (exports.import) {
+              main = exports.import
             } else {
-              main = exports.require || exports.node || exports.default;
+              main = exports.require || exports.node || exports.default
             }
           } else {
-            main = exports;
+            main = exports
           }
         }
       }
 
       // exports search was not successful, fallback to package.main, using index.js as fallback
       if (!main) {
-        main = packageJSON.main || "./index.js";
+        main = packageJSON.main || './index.js'
       }
 
       // check if it is an ESM module
-      const isESM = main.endsWith('.mjs') || (main.endsWith('.js') && packageJSON.type === 'module');
-      const mainPath = path.join(this.testPath, 'node_modules', this.packageName, main);
+      const isESM = main.endsWith('.mjs') || (main.endsWith('.js') && packageJSON.type === 'module')
+      const mainPath = join(this.testPath, 'node_modules', this.packageName, main)
 
-      const pluginModules = isESM ? await _importDynamic(pathToFileURL(mainPath).href) : require(mainPath);
+      const pluginModules = isESM ? await _importDynamic(pathToFileURL(mainPath).href) : require(mainPath)
 
       if (typeof pluginModules === 'function') {
-        // ok
+        this.passed.push('Package JSON: initializer function found')
       } else if (pluginModules && typeof pluginModules.default === 'function') {
-        // ok
+        this.passed.push('Package JSON: initializer function found')
       } else {
         // not ok
-        this.errors.push('Plugin does not export an initializer function.')
+        this.failed.push('Package JSON: no initializer function found')
       }
     } catch (e: any) {
-      this.errors.push(`Failed to import plugin: ${e.message}`)
+      this.failed.push(`Package JSON: failed to import plugin as ${e.message}`)
+    }
+  }
+
+  async testGibHubRepo() {
+    try {
+      // Undici request to GitHub API
+      const { body } = await request(
+        `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}`,
+        {
+          headers: {
+            'User-Agent': 'Homebridge Plugin Precheck',
+            'Accept': 'application/vnd.github+json',
+          }
+        }
+      )
+      const repoData = await body.json() as any
+
+      // Check is public
+      if (repoData.private) {
+        this.failed.push('GitHub Repo: should not be private')
+      } else {
+        this.passed.push('GitHub Repo: repository is public')
+      }
+
+      // Check is not archived
+      if (repoData.archived) {
+        this.failed.push('GitHub Repo: should not be archived')
+      } else {
+        this.passed.push('GitHub Repo: repository is not archived')
+      }
+
+      // Are issues enabled?
+      if (repoData.has_issues) {
+        this.passed.push('GitHub Repo: issues are enabled')
+      } else {
+        this.failed.push('GitHub Repo: should have issues enabled')
+      }
+
+      // Check that there are some releases
+      const { body: releases } = await request(
+        `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}/releases`,
+        {
+          headers: {
+            'User-Agent': 'Homebridge Plugin Precheck',
+            'Accept': 'application/vnd.github+json',
+          }
+        }
+      )
+      const releaseData = await releases.json() as any
+
+      if (releaseData.length > 0) {
+        this.passed.push('GitHub Repo: contains releases')
+      } else {
+        this.failed.push('GitHub Repo: should contain releases')
+      }
+    } catch (e: any) {
+      console.error(e)
+      this.failed.push(`Github Repo: could not request information as ${e.message}`)
+    }
+  }
+
+  async testNpmPackage() {
+    try {
+      const { body } = await request(`https://registry.npmjs.org/${encodeURIComponent(this.packageName).replace(/%40/g, '@')}`, {
+        headers: {
+          'accept': 'application/vnd.npm.install-v1+json', // only return minimal information
+        },
+      })
+
+      const bodyJson = await body.json() as any
+
+      const latestVersion = bodyJson['dist-tags'].latest as string
+      const deprecatedMessage = bodyJson.versions[latestVersion].deprecated as string
+
+      if (deprecatedMessage) {
+        this.failed.push('NPM Package: has been deprecated')
+      } else {
+        this.passed.push('NPM Package: has not been deprecated')
+      }
+    } catch (e: any) {
+      this.failed.push(`NPM Package: could not request information as ${e.message}`)
     }
   }
 
   async testConfigSchema() {
-    const schemaPath = path.join(this.testPath, 'node_modules', this.packageName, 'config.schema.json');
+    const schemaPath = join(this.testPath, 'node_modules', this.packageName, 'config.schema.json')
 
-    if (!await fs.pathExists(schemaPath)) {
-      this.errors.push('Missing config.schema.json.')
-      return;
-    }
+    if (await pathExists(schemaPath)) {
+      let configSchema: any
 
-    try {
-      await fs.readJson(schemaPath);
-    } catch (e) {
-      this.errors.push('The config.schema.json does not contain valid JSON.')
-      return;
-    }
+      try {
+        configSchema = await readJson(schemaPath)
+        this.passed.push('Config Schema JSON: exists and is valid JSON')
+      } catch (e) {
+        this.failed.push('Config Schema JSON: does not contain valid JSON')
+        return
+      }
 
-    const configSchema = await fs.readJson(schemaPath);
+      if (typeof configSchema.pluginAlias === 'string') {
+        this.passed.push('Config Schema JSON: contains a valid `pluginAlias`')
+      } else {
+        this.failed.push('Config Schema JSON: does not contain a valid `pluginAlias`')
+      }
 
-    if (typeof configSchema.pluginAlias !== 'string') {
-      this.errors.push('The config.schema.json does not contain a valid "pluginAlias".')
-    }
+      if (configSchema.pluginType === 'platform') {
+        this.passed.push('Config Schema JSON: the `pluginType` is set to `\'platform\'`')
+      } else {
+        this.failed.push('Config Schema JSON: the `pluginType` is not set to `\'platform\'`')
+      }
 
-    if (!['platform', 'accessory'].includes(configSchema.pluginType)) {
-      this.errors.push('The config.schema.json does not contain a valid "pluginType".')
+      // Look for a schema->properties->name object
+      if (configSchema.schema?.properties?.name && Object.keys(configSchema.schema.properties.name).length > 0) {
+        this.passed.push('Config Schema JSON: contains a `name` schema property')
+      } else {
+        this.failed.push('Config Schema JSON: does not contain a `name` schema property')
+      }
+    } else {
+      this.failed.push('Config Schema JSON: missing file')
     }
   }
 
   async testDependencies() {
-    if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'homebridge'))) {
-      this.errors.push('The "homebridge" library was installed as a dependency.')
+    if (await pathExists(join(this.testPath, 'node_modules', 'homebridge'))) {
+      this.failed.push('Dependencies: `homebridge` was installed as a dependency')
+    } else {
+      this.passed.push('Dependencies: `homebridge` was not installed as a dependency')
     }
 
-    if (await fs.pathExists(path.join(this.testPath, 'node_modules', 'hap-nodejs'))) {
-      this.errors.push('The "hap-nodejs" library was installed as a dependency.')
+    if (await pathExists(join(this.testPath, 'node_modules', 'hap-nodejs'))) {
+      this.failed.push('Dependencies: `hap-nodejs` was installed as a dependency')
+    } else {
+      this.passed.push('Dependencies: `hap-nodejs` was not installed as a dependency')
     }
   }
 }
 
 const checkHomebridgePlugin = new CheckHomebridgePlugin()
-checkHomebridgePlugin.start();
+checkHomebridgePlugin.start()

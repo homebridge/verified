@@ -1,0 +1,29 @@
+name: Plugin Icon Request
+description: Request an icon for your verified plugin
+title: "Plugin Icon Request: homebridge-"
+body:
+  - type: markdown
+    attributes:
+      value: "## Basic Details"
+  - type: markdown
+    attributes:
+      value: |
+        - A plugin must be **verified** before requesting an icon.
+        - Icons can only be request by the developer of a plugin.
+        - Verification checks will be performed on plugins requesting an icon.
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin Name
+      description: The name of your plugin as it appears on NPM. For example `homebridge-xyz` or `@scope/homebridge-xyz`.
+      placeholder: homebridge-xyz
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Plugin Icon
+      description: Please attach the icon you would like to use. This must be a square
+        image, around 100px by 100px, and in PNG format. Please ensure that it
+        will not violate any trademark or licensing agreements.
+    validations:
+      required: true

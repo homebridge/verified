@@ -1,0 +1,127 @@
+name: Plugin Verification Request
+description: Request verification for your plugin
+title: "Verification Request: homebridge-"
+labels:
+  - pending
+body:
+  - type: markdown
+    attributes:
+      value: "## Basic Details"
+  - type: markdown
+    attributes:
+      value: >
+        Please double check the [requirements
+        list](https://github.com/homebridge/verified#requirements) before
+        submitting a request.
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin Name
+      description: The name of your plugin as it appears on NPM. For example `homebridge-xyz` or `@scope/homebridge-xyz`.
+      placeholder: homebridge-xyz
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Link To GitHub Repo
+      placeholder: https://github.com/homebridge/homebridge-xyz
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Plugin Icon (Optional)
+      description: Please attach the icon you would like to use. This must be a square
+        image, around 100px by 100px, and in PNG format. Please ensure that any
+        icon will not violate any trademark or licensing agreements.
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: "## Verification Requirements"
+  - type: markdown
+    attributes:
+      value: "### General"
+  - type: markdown
+    attributes:
+      value: "Please answer/confirm the following conditions:"
+  - type: dropdown
+    attributes:
+      label: The plugin does not offer the same nor less functionality than that of
+        any existing verified plugin.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Environment"
+  - type: dropdown
+    attributes:
+      label: The plugin successfully installs and does not start unless it is
+        configured.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: The plugin does not require the user to run Homebridge in a TTY or with
+        non-standard startup parameters, even for initial configuration.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Codebase"
+  - type: dropdown
+    attributes:
+      label: The plugin does not contain any analytics or calls that enable you to
+        track the user.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: If the plugin needs to write files to disk (cache, keys, etc.), it stores
+        them inside the Homebridge storage directory.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: The plugin does not throw unhandled exceptions, the plugin must catch and
+        log its own errors.
+      options:
+        - Choose an option...
+        - 🟢 Yes
+        - 🟠 No (please explain in the more information box at the end)
+      default: 0
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## More Information"
+  - type: textarea
+    attributes:
+      label: More Information
+      description: Please provide any additional information that you think is relevant
+        to the review process. This is a place to explain any "No" answers from
+        above.

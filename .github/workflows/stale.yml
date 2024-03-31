@@ -1,10 +1,8 @@
-name: Stale workflow
-
+name: Stale Workflow
 on:
-  workflow_dispatch:
+  workflow_dispatch: null
   schedule:
-    - cron: '45 11 * * *'
-
+    - cron: 45 11 * * *
 jobs:
   stale:
     uses: homebridge/.github/.github/workflows/stale.yml@latest
