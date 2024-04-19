@@ -214,6 +214,7 @@
   "homebridge-litter-robot-connect",
   "homebridge-logic-switch",
   "homebridge-logo-platform",
+  "homebridge-loxone-control",
   "homebridge-loxone-proxy",
   "homebridge-lutron-caseta-leap",
   "homebridge-luxtronik2",
