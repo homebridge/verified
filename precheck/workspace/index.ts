@@ -101,11 +101,11 @@ class CheckHomebridgePlugin {
     try {
       const packageJSON = await readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
 
-      // Validate repository: it should exist and contain a URL
-      if (packageJSON.repository && packageJSON.repository.url) {
-        this.passed.push('Package JSON: `repository.url` property exists')
+      // Validate homepage: it should exist
+      if (packageJSON.homepage && packageJSON.homepage.startsWith('https://')) {
+        this.passed.push('Package JSON: `homepage` exists')
       } else {
-        this.failed.push('Package JSON: `repository.url` missing')
+        this.failed.push('Package JSON: `homepage` missing or does not start with `https://`')
       }
 
       // Validate bugs: it should exist and contain a URL
