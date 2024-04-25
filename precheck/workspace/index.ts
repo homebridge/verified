@@ -114,7 +114,13 @@ class CheckHomebridgePlugin {
         parts.pop()
         this.gitHubRepo = parts.pop()
         this.gitHubAuthor = parts.pop()
-        this.passed.push('Package JSON: `bugs.url` exists')
+
+        // Verify that the bugs.url starts with https://
+        if (packageJSON.bugs.url.startsWith('https://')) {
+          this.passed.push('Package JSON: `bugs.url` exists and seems a valid URL')
+        } else {
+          this.failed.push('Package JSON: `bugs.url` exists but does not start with `https://`')
+        }
       } else {
         this.failed.push('Package JSON: `bugs.url` missing')
       }
