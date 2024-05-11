@@ -8,12 +8,12 @@
   "main": "index.js",
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.12.8",
+    "@types/node": "^20.12.11",
     "@types/semver": "^7.5.8",
     "fs-extra": "^11.2.0",
-    "semver": "^7.6.0",
+    "semver": "^7.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
-    "undici": "^6.15.0"
+    "undici": "^6.16.1"
   }
 }
