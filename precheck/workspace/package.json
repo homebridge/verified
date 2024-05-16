@@ -8,7 +8,7 @@
   "main": "index.js",
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.12.12",
     "@types/semver": "^7.5.8",
     "fs-extra": "^11.2.0",
     "semver": "^7.6.2",
