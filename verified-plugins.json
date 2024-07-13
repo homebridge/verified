@@ -16,6 +16,7 @@
   "@switchbot/homebridge-switchbot",
   "@ubreu/homebridge-helios-kwl",
   "@ubreu/homebridge-ibricks",
+  "homebridge-2-enet",
   "homebridge-3em-energy-meter",
   "homebridge-433-arduino",
   "homebridge-abode-lights",
