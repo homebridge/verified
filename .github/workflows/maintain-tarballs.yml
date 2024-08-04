@@ -22,4 +22,4 @@ jobs:
         run: npm run maintain-tarballs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gautamkrishnar/keepalive-workflow@v1
+      - uses: gautamkrishnar/keepalive-workflow@v2

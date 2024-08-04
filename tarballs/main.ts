@@ -7,7 +7,7 @@ import { Octokit } from '@octokit/core'
 import axios from 'axios'
 import fs from 'fs-extra'
 
-const __dirname = import.meta.dirname;
+const __dirname = import.meta.dirname
 
 const execAsync = util.promisify(exec)
 
@@ -33,6 +33,7 @@ export class Main {
   private pluginMap: Plugin[] = []
 
   private pluginsSuccessfullyUpdated: Plugin[] = []
+  private pluginsNotProcessed: { plugin: Plugin, error: string }[] = []
 
   private release: {
     id: number
@@ -79,7 +80,6 @@ export class Main {
     'homebridge',
     'homebridge-broadlink-rm-pro',
     'homebridge-http-switch',
-    'homebridge-tasmota',
     'homebridge-daikin-esp8266',
     'homebridge-esp8266-fan',
     '@oznu/homebridge-esp8266-garage-door',
@@ -143,6 +143,7 @@ export class Main {
         }
       } catch (e) {
         console.log(`ERROR: ${pluginName}`, e.message)
+        this.pluginsNotProcessed.push({ plugin: { name: pluginName, valid: false, version: null, packaged: false }, error: e.message })
       }
     }
   }
@@ -167,14 +168,18 @@ export class Main {
    * Update the GitHub Release
    */
   async updateRelease() {
-    if (this.pluginsSuccessfullyUpdated.length > 0) {
+    if (this.pluginsSuccessfullyUpdated.length > 0 || this.pluginsNotProcessed.length > 0) {
       try {
         await this.octokit.request('PATCH /repos/{owner}/{repo}/releases/{release_id}', {
           owner: this.githubProjectOwner,
           repo: this.githubProjectRepo,
           release_id: this.release.id,
           name: new Date().toISOString().split('T')[0],
-          body: `Recently updated plugins:\n\n${this.pluginsSuccessfullyUpdated.map(x => `* ${x.name}@${x.version}`).join('\n')}`,
+          body: 'Recently updated plugins:\n\n'
+          + `${this.pluginsSuccessfullyUpdated.map(x => `- ${x.name}@${x.version}`).join('\n')}\n`
+          + '---\n'
+          + 'Plugins not processed:\n\n'
+          + `${this.pluginsNotProcessed.map(x => `- ${x.plugin.name} - ${x.error}`).join('\n')}`,
         })
         console.log('Updated release.')
       } catch (e) {
