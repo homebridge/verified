@@ -1,0 +1,25 @@
+name: Maintain Tarballs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 12 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tarballs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: v20
+      - name: Install dependencies
+        run: npm install
+      - name: Maintain Tarballs
+        run: npm run maintain-tarballs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: gautamkrishnar/keepalive-workflow@v1

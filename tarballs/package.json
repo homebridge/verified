@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --fix",
+    "maintain-tarballs": "tsc --noEmit && node  --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' ./main.ts"
+  },
+  "dependencies": {
+    "@octokit/core": "^6.1.2",
+    "axios": "^1.7.3",
+    "form-data": "^4.0.0",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.24.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.1.0",
+    "eslint": "^9.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
