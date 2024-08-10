@@ -1,4 +1,4 @@
-name: Check JSON
+name: Check JSON Files
 on:
   push:
     branches:
