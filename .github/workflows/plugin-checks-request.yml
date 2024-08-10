@@ -20,7 +20,7 @@ jobs:
       inputs.plugin)
     steps:
       - uses: actions/checkout@v4
-      - name: Install Dependencies
+      - name: Install Dependencies & Build
         run: npm install && npm run plugin-checks:build
       - name: Extract Plugin Name
         id: extract

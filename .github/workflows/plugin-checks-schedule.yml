@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Dependencies
+      - name: Install Dependencies & Build
         run: npm install && npm run plugin-checks:build
       - name: Randomly Select Plugin
         id: get-verified-plugin
