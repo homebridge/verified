@@ -3,6 +3,7 @@
  */
 
 import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
@@ -14,6 +15,7 @@ import { request } from 'undici'
 // eslint-disable-next-line no-new-func
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
 const __dirname = import.meta.dirname
+const require = createRequire(import.meta.url)
 
 class CheckHomebridgePlugin {
   failed: string[] = []
@@ -226,7 +228,6 @@ class CheckHomebridgePlugin {
       const isESM = main.endsWith('.mjs') || (main.endsWith('.js') && packageJSON.type === 'module')
       const mainPath = join(this.testPath, 'node_modules', this.packageName, main)
 
-      // eslint-disable-next-line ts/no-require-imports
       const pluginModules = isESM ? await _importDynamic(pathToFileURL(mainPath).href) : require(mainPath)
 
       if (typeof pluginModules === 'function') {
