@@ -248,7 +248,7 @@ class CheckHomebridgePlugin {
         `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}`,
         {
           headers: {
-            'User-Agent': 'Homebridge Plugin Precheck',
+            'User-Agent': 'Homebridge Plugin Checks',
             'Accept': 'application/vnd.github+json',
           },
         },
@@ -281,7 +281,7 @@ class CheckHomebridgePlugin {
         `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}/releases`,
         {
           headers: {
-            'User-Agent': 'Homebridge Plugin Precheck',
+            'User-Agent': 'Homebridge Plugin Checks',
             'Accept': 'application/vnd.github+json',
           },
         },

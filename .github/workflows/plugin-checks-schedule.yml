@@ -1,4 +1,4 @@
-name: Plugin Pre-Checks (Schedule)
+name: Plugin Checks (Schedule)
 on:
   schedule:
     - cron: '0 0,6,12,18 * * *'
@@ -10,12 +10,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: npm install
+      - name: Compile TypeScript
+        run: npm run plugin-checks
       - name: Randomly Select Plugin
         id: get-verified-plugin
         run: |
           echo "plugin=$(jq -r '.[]' verified-plugins.json | sed '/^$/d' | shuf -n 1)" >> $GITHUB_ENV
         shell: bash
       - name: Check Plugin
-        uses: ./src
+        uses: ./src/plugin-checks
         with:
           plugin: ${{ env.plugin }}

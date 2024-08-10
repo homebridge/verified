@@ -1,4 +1,4 @@
-name: Plugin Pre-Checks (Request)
+name: Plugin Checks (Request)
 on:
   workflow_dispatch:
     inputs:
@@ -23,7 +23,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Compile TypeScript
-        run: npm run build --prefix src/plugin-checks
+        run: npm run plugin-checks
       - name: Extract Plugin Name
         id: extract
         run: |

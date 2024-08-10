@@ -18,9 +18,9 @@ class PluginChecks {
   async run() {
     try {
       const pluginName = getInput('plugin', { required: true })
-      console.log('******************************')
-      console.log(`Running pre-checks for plugin: ${pluginName}.`)
-      console.log('******************************')
+      console.log('**************************')
+      console.log(`Running checks for plugin: ${pluginName}.`)
+      console.log('**************************')
       if (pluginName) {
         this.pluginName = pluginName
         await this.runTests()
@@ -36,19 +36,19 @@ class PluginChecks {
     let allPassed: boolean = true
 
     if (this.failed.length) {
-      comment += '🔴 The following pre-checks failed:\n\n'
+      comment += '🔴 The following checks failed:\n\n'
       comment += this.failed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
     if (this.passed.length) {
-      comment += '🟢 The following pre-checks passed:\n\n'
+      comment += '🟢 The following checks passed:\n\n'
       comment += this.passed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
     if (this.passed.length && !this.failed.length) {
-      comment += '🎉 All pre-checks passed successfully, nice work! Your plugin and/or icon will now be manually reviewed by the Homebridge team.'
+      comment += '🎉 All checks passed successfully, nice work! Your plugin and/or icon will now be manually reviewed by the Homebridge team.'
     } else {
       allPassed = false
       comment += '⚠️ Please action these failures and then comment `/check` to run the checks again. Let us know if you need any help.\n\n'
