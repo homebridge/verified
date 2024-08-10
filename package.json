@@ -17,8 +17,9 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "maintain-tarballs": "tsc --noEmit && node  --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' src/plugin-tarballs/index.ts",
-    "plugin-checks": "tsc --noEmit && node  --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' ./src/plugin-checks/index.ts",
+    "plugin-checks:build": "tsc -p src/plugin-checks",
+    "plugin-checks:run": "node src/plugin-checks/index.js",
+    "plugin-tarballs": "tsc -p src/plugin-tarballs && node src/plugin-tarballs/index.js",
     "sort-json-files": "node scripts/sort-json-files.js"
   },
   "dependencies": {

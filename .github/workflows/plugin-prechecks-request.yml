@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Dependencies
-        run: npm install && npm run plugin-checks
+        run: npm install && npm run plugin-checks:build
       - name: Extract Plugin Name
         id: extract
         run: |

@@ -10,8 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: npm install
-      - name: Compile TypeScript
-        run: npm run plugin-checks
       - name: Randomly Select Plugin
         id: get-verified-plugin
         run: |

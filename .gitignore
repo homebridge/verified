@@ -2,3 +2,6 @@
 .DS_Store
 node_modules
 work
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
