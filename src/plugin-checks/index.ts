@@ -8,7 +8,7 @@ import process from 'node:process'
 
 import { debug, getInput } from '@actions/core'
 import { getOctokit } from '@actions/github'
-import { mkdirp, pathExists, readJson } from 'fs-extra'
+import fs from 'fs-extra'
 
 class PluginChecks {
   private pluginName: string
@@ -153,7 +153,7 @@ class PluginChecks {
     const resultsPath = resolve(__dirname, 'results')
     const checksJsonFile = resolve(resultsPath, 'results.json')
 
-    await mkdirp(resultsPath)
+    await fs.mkdirp(resultsPath)
 
     // run tests
     try {
@@ -165,8 +165,8 @@ class PluginChecks {
       console.error(`Failed to test plugin as ${e.message}`)
     }
 
-    if (await pathExists(checksJsonFile)) {
-      const checksJson = await readJson(checksJsonFile) as { passed: string[], failed: string[] }
+    if (await fs.pathExists(checksJsonFile)) {
+      const checksJson = await fs.readJson(checksJsonFile) as { passed: string[], failed: string[] }
       this.passed.push(...checksJson.passed)
       this.failed.push(...checksJson.failed)
     } else {
