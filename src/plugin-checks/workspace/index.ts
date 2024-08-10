@@ -13,6 +13,7 @@ import { request } from 'undici'
 
 // eslint-disable-next-line no-new-func
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
+const __dirname = import.meta.dirname
 
 class CheckHomebridgePlugin {
   failed: string[] = []
