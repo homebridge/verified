@@ -4,23 +4,25 @@
 
 import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
-import * as process from 'node:process'
+import process from 'node:process'
 
 import { debug, getInput } from '@actions/core'
 import { getOctokit } from '@actions/github'
-import { mkdirp, pathExists, readJson } from 'fs-extra'
+import fs from 'fs-extra'
 
-class PluginTests {
-  static pluginName: string
-  static passed: string[] = []
-  static failed: string[] = []
+const __dirname = import.meta.dirname
 
-  static async start() {
+class PluginChecks {
+  private pluginName: string
+  private passed: string[] = []
+  private failed: string[] = []
+
+  async run() {
     try {
       const pluginName = getInput('plugin', { required: true })
-      console.log('******************************')
-      console.log(`Running pre-checks for plugin: ${pluginName}.`)
-      console.log('******************************')
+      console.log('**************************')
+      console.log(`Running checks for plugin: ${pluginName}.`)
+      console.log('**************************')
       if (pluginName) {
         this.pluginName = pluginName
         await this.runTests()
@@ -36,19 +38,19 @@ class PluginTests {
     let allPassed: boolean = true
 
     if (this.failed.length) {
-      comment += '🔴 The following pre-checks failed:\n\n'
-      comment += this.failed.map((e) => `- ${e}`).join('\n')
+      comment += '🔴 The following checks failed:\n\n'
+      comment += this.failed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
     if (this.passed.length) {
-      comment += '🟢 The following pre-checks passed:\n\n'
-      comment += this.passed.map((e) => `- ${e}`).join('\n')
+      comment += '🟢 The following checks passed:\n\n'
+      comment += this.passed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
     if (this.passed.length && !this.failed.length) {
-      comment += '🎉 All pre-checks passed successfully, nice work! Your plugin and/or icon will now be manually reviewed by the Homebridge team.'
+      comment += '🎉 All checks passed successfully, nice work! Your plugin and/or icon will now be manually reviewed by the Homebridge team.'
     } else {
       allPassed = false
       comment += '⚠️ Please action these failures and then comment `/check` to run the checks again. Let us know if you need any help.\n\n'
@@ -62,7 +64,7 @@ class PluginTests {
     }, 100)
   }
 
-  static async addComment(successful: boolean, comment: string) {
+  async addComment(successful: boolean, comment: string) {
     const octokit = getOctokit(getInput('token'))
 
     const repository = process.env.GITHUB_REPOSITORY
@@ -77,7 +79,7 @@ class PluginTests {
       const restParams = {
         owner: repo[0],
         repo: repo[1],
-        issue_number: Number.parseInt(issueNumber, 10)
+        issue_number: Number.parseInt(issueNumber, 10),
       }
 
       // Add a comment to the issue
@@ -93,7 +95,7 @@ class PluginTests {
 
       if (successful) {
         // Add the `pending` label to the issue if it doesn't already have it
-        if (!labels.data.find((label) => label.name === 'pending')) {
+        if (!labels.data.find(label => label.name === 'pending')) {
           await octokit.rest.issues.addLabels({
             ...restParams,
             labels: ['pending'],
@@ -101,7 +103,7 @@ class PluginTests {
         }
 
         // Remove `awaiting-changes` label if it exists
-        if (labels.data.find((label) => label.name === 'awaiting-changes')) {
+        if (labels.data.find(label => label.name === 'awaiting-changes')) {
           await octokit.rest.issues.removeLabel({
             ...restParams,
             name: 'awaiting-changes',
@@ -109,7 +111,7 @@ class PluginTests {
         }
       } else {
         // Add the `awaiting-changes` label to the issue if it doesn't already have it
-        if (!labels.data.find((label) => label.name === 'awaiting-changes')) {
+        if (!labels.data.find(label => label.name === 'awaiting-changes')) {
           await octokit.rest.issues.addLabels({
             ...restParams,
             labels: ['awaiting-changes'],
@@ -117,7 +119,7 @@ class PluginTests {
         }
 
         // Remove `pending` label if it exists
-        if (labels.data.find((label) => label.name === 'pending')) {
+        if (labels.data.find(label => label.name === 'pending')) {
           await octokit.rest.issues.removeLabel({
             ...restParams,
             name: 'pending',
@@ -138,7 +140,7 @@ class PluginTests {
     }
   }
 
-  static async runTests() {
+  async runTests() {
     // create container
     try {
       execSync('docker build -t check .', {
@@ -153,7 +155,7 @@ class PluginTests {
     const resultsPath = resolve(__dirname, 'results')
     const checksJsonFile = resolve(resultsPath, 'results.json')
 
-    await mkdirp(resultsPath)
+    await fs.mkdirp(resultsPath)
 
     // run tests
     try {
@@ -165,8 +167,8 @@ class PluginTests {
       console.error(`Failed to test plugin as ${e.message}`)
     }
 
-    if (await pathExists(checksJsonFile)) {
-      const checksJson = await readJson(checksJsonFile) as { passed: string[], failed: string[] }
+    if (await fs.pathExists(checksJsonFile)) {
+      const checksJson = await fs.readJson(checksJsonFile) as { passed: string[], failed: string[] }
       this.passed.push(...checksJson.passed)
       this.failed.push(...checksJson.failed)
     } else {
@@ -175,4 +177,8 @@ class PluginTests {
   }
 }
 
-PluginTests.start()
+// bootstrap and run
+(async () => {
+  const main = new PluginChecks()
+  await main.run()
+})()

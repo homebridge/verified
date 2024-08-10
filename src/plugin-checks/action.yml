@@ -1,4 +1,4 @@
-name: Homebridge Plugin Pre-Checks
+name: Homebridge Plugin Checks
 description: Check if a Homebridge plugin meets the minimum requirements for the Homebridge Verified program.
 inputs:
   token:

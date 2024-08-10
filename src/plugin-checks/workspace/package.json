@@ -1,5 +1,6 @@
 {
   "name": "check",
+  "type": "module",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -8,12 +9,12 @@
   "main": "index.js",
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "@types/semver": "^7.5.8",
     "fs-extra": "^11.2.0",
     "semver": "^7.6.3",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
     "typescript": "^5.5.4",
-    "undici": "^6.19.5"
+    "undici": "^6.19.7"
   }
 }

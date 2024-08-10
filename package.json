@@ -1,5 +1,6 @@
 {
   "name": "@homebridge/verified",
+  "type": "module",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -13,20 +14,29 @@
   "bugs": {
     "url": "https://github.com/homebridge/verified/issues"
   },
-  "main": "index.js",
   "scripts": {
-    "test-plugin": "ts-node precheck.ts",
-    "install": "tsc index.ts"
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "plugin-checks:build": "tsc -p src/plugin-checks",
+    "plugin-checks:run": "node src/plugin-checks/index.js",
+    "plugin-tarballs:build": "tsc -p src/plugin-tarballs",
+    "plugin-tarballs:run": "node src/plugin-tarballs/index.js",
+    "sort-json-files": "node scripts/sort-json-files.js"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
+    "@octokit/core": "^6.1.2",
+    "axios": "^1.7.3",
+    "form-data": "^4.0.0",
     "fs-extra": "^11.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.25.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.1.0"
+    "@types/node": "^22.2.0",
+    "eslint": "^9.9.0"
   }
 }

@@ -1,12 +1,12 @@
 name: Plugin Verification Request
 description: Request verification for your plugin
-title: "Verification Request: homebridge-"
+title: 'Verification Request: homebridge-'
 labels:
   - pending
 body:
   - type: markdown
     attributes:
-      value: "## Basic Details"
+      value: '## Basic Details'
   - type: markdown
     attributes:
       value: >
@@ -37,13 +37,13 @@ body:
       required: false
   - type: markdown
     attributes:
-      value: "## Verification Requirements"
+      value: '## Verification Requirements'
   - type: markdown
     attributes:
-      value: "### General"
+      value: '### General'
   - type: markdown
     attributes:
-      value: "Please answer/confirm the following conditions:"
+      value: 'Please answer/confirm the following conditions:'
   - type: dropdown
     attributes:
       label: The plugin does not offer the same nor less functionality than that of
@@ -57,7 +57,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "## Environment"
+      value: '## Environment'
   - type: dropdown
     attributes:
       label: The plugin successfully installs and does not start unless it is
@@ -82,7 +82,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "## Codebase"
+      value: '## Codebase'
   - type: dropdown
     attributes:
       label: The plugin does not contain any analytics or calls that enable you to
@@ -118,7 +118,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "## More Information"
+      value: '## More Information'
   - type: textarea
     attributes:
       label: More Information

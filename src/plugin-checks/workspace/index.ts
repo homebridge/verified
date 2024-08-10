@@ -3,15 +3,19 @@
  */
 
 import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
-import * as process from 'node:process'
+import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 
-import { mkdirp, pathExists, readJson, remove, writeJson } from 'fs-extra'
+import fs from 'fs-extra'
 import { satisfies } from 'semver'
 import { request } from 'undici'
 
+// eslint-disable-next-line no-new-func
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
+const __dirname = import.meta.dirname
+const require = createRequire(import.meta.url)
 
 class CheckHomebridgePlugin {
   failed: string[] = []
@@ -54,7 +58,7 @@ class CheckHomebridgePlugin {
       this.failed.push(e.message)
     }
 
-    await writeJson('/results/results.json', {
+    await fs.writeJson('/results/results.json', {
       failed: this.failed,
       passed: this.passed,
     })
@@ -65,12 +69,12 @@ class CheckHomebridgePlugin {
   async createTestArea() {
     this.testPath = resolve(__dirname, 'test-area')
 
-    if (await pathExists(this.testPath)) {
-      await remove(this.testPath)
+    if (await fs.pathExists(this.testPath)) {
+      await fs.remove(this.testPath)
     }
 
-    await mkdirp(this.testPath)
-    await writeJson(join(this.testPath, 'package.json'), {
+    await fs.mkdirp(this.testPath)
+    await fs.writeJson(join(this.testPath, 'package.json'), {
       private: true,
       name: 'test-area',
       description: 'n/a',
@@ -99,7 +103,7 @@ class CheckHomebridgePlugin {
 
   async testPkgJson() {
     try {
-      const packageJSON = await readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
+      const packageJSON = await fs.readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
 
       // Validate homepage: it should exist
       if (packageJSON.homepage && packageJSON.homepage.startsWith('https://')) {
@@ -163,24 +167,54 @@ class CheckHomebridgePlugin {
       // Validate engine versions
       if (packageJSON.engines) {
         if (packageJSON.engines.node) {
-          if (satisfies('18.20.1', packageJSON.engines.node)) {
-            this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
-          } else {
-            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
-          }
-          if (satisfies('20.12.0', packageJSON.engines.node)) {
-            this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
-          } else {
-            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
+          try {
+            // Obtain the latest version of Node version 18 and 20
+            const { body } = await request('https://nodejs.org/dist/index.json', {
+              headers: {
+                'User-Agent': 'Homebridge Plugin Checks',
+              },
+            })
+            const versionList = await body.json() as any
+
+            // Get the newest v18 and v20 in the list
+            const latest18 = versionList.filter((x: { version: string }) => x.version.startsWith('v18'))[0].version as string
+            const latest20 = versionList.filter((x: { version: string }) => x.version.startsWith('v20'))[0].version as string
+
+            if (satisfies(latest18, packageJSON.engines.node)) {
+              this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
+            } else {
+              this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
+            }
+            if (satisfies(latest20, packageJSON.engines.node)) {
+              this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
+            } else {
+              this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
+            }
+          } catch (e: any) {
+            this.failed.push(`Package JSON: failed to check Node compatibility as ${e.message}`)
           }
         } else {
           // ok
         }
         if (packageJSON.engines.homebridge) {
-          if (satisfies('1.7.0', packageJSON.engines.homebridge)) {
-            this.passed.push('Package JSON: `engines.homebridge` property is compatible with Homebridge 1.7.0')
-          } else {
-            this.failed.push('Package JSON: `engines.homebridge` property is not compatible with Homebridge 1.7.0')
+          try {
+            // Get the latest Homebridge version
+            const { body } = await request('https://registry.npmjs.org/homebridge', {
+              headers: {
+                accept: 'application/vnd.npm.install-v1+json', // only return minimal information
+              },
+            })
+
+            const bodyJson = await body.json() as any
+            const latestVersion = bodyJson['dist-tags'].latest as string
+
+            if (satisfies(latestVersion, packageJSON.engines.homebridge)) {
+              this.passed.push(`Package JSON: \`engines.homebridge\` property is compatible with Homebridge ${latestVersion}`)
+            } else {
+              this.failed.push(`Package JSON: \`engines.homebridge\` property is not compatible with Homebridge ${latestVersion}`)
+            }
+          } catch (e: any) {
+            this.failed.push(`Package JSON: failed to check Homebridge compatibility as ${e.message}`)
           }
         } else {
           this.failed.push('Package JSON: `engines.homebridge` property missing')
@@ -246,10 +280,10 @@ class CheckHomebridgePlugin {
         `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}`,
         {
           headers: {
-            'User-Agent': 'Homebridge Plugin Precheck',
+            'User-Agent': 'Homebridge Plugin Checks',
             'Accept': 'application/vnd.github+json',
-          }
-        }
+          },
+        },
       )
       const repoData = await body.json() as any
 
@@ -279,10 +313,10 @@ class CheckHomebridgePlugin {
         `https://api.github.com/repos/${this.gitHubAuthor}/${this.gitHubRepo}/releases`,
         {
           headers: {
-            'User-Agent': 'Homebridge Plugin Precheck',
+            'User-Agent': 'Homebridge Plugin Checks',
             'Accept': 'application/vnd.github+json',
-          }
-        }
+          },
+        },
       )
       const releaseData = await releases.json() as any
 
@@ -301,7 +335,7 @@ class CheckHomebridgePlugin {
     try {
       const { body } = await request(`https://registry.npmjs.org/${encodeURIComponent(this.packageName).replace(/%40/g, '@')}`, {
         headers: {
-          'accept': 'application/vnd.npm.install-v1+json', // only return minimal information
+          accept: 'application/vnd.npm.install-v1+json', // only return minimal information
         },
       })
 
@@ -323,11 +357,11 @@ class CheckHomebridgePlugin {
   async testConfigSchema() {
     const schemaPath = join(this.testPath, 'node_modules', this.packageName, 'config.schema.json')
 
-    if (await pathExists(schemaPath)) {
+    if (await fs.pathExists(schemaPath)) {
       let configSchema: any
 
       try {
-        configSchema = await readJson(schemaPath)
+        configSchema = await fs.readJson(schemaPath)
         this.passed.push('Config Schema JSON: exists and is valid JSON')
       } catch (e) {
         this.failed.push('Config Schema JSON: does not contain valid JSON')
@@ -358,13 +392,13 @@ class CheckHomebridgePlugin {
   }
 
   async testDependencies() {
-    if (await pathExists(join(this.testPath, 'node_modules', 'homebridge'))) {
+    if (await fs.pathExists(join(this.testPath, 'node_modules', 'homebridge'))) {
       this.failed.push('Dependencies: `homebridge` was installed as a dependency')
     } else {
       this.passed.push('Dependencies: `homebridge` was not installed as a dependency')
     }
 
-    if (await pathExists(join(this.testPath, 'node_modules', 'hap-nodejs'))) {
+    if (await fs.pathExists(join(this.testPath, 'node_modules', 'hap-nodejs'))) {
       this.failed.push('Dependencies: `hap-nodejs` was installed as a dependency')
     } else {
       this.passed.push('Dependencies: `hap-nodejs` was not installed as a dependency')
