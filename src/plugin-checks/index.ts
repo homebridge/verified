@@ -10,6 +10,8 @@ import { debug, getInput } from '@actions/core'
 import { getOctokit } from '@actions/github'
 import fs from 'fs-extra'
 
+const __dirname = import.meta.dirname
+
 class PluginChecks {
   private pluginName: string
   private passed: string[] = []
