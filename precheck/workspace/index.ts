@@ -163,12 +163,12 @@ class CheckHomebridgePlugin {
       // Validate engine versions
       if (packageJSON.engines) {
         if (packageJSON.engines.node) {
-          if (satisfies('18.20.1', packageJSON.engines.node)) {
+          if (satisfies('18.20.4', packageJSON.engines.node)) {
             this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
           } else {
             this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
           }
-          if (satisfies('20.12.0', packageJSON.engines.node)) {
+          if (satisfies('20.16.0', packageJSON.engines.node)) {
             this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
           } else {
             this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
@@ -177,7 +177,7 @@ class CheckHomebridgePlugin {
           // ok
         }
         if (packageJSON.engines.homebridge) {
-          if (satisfies('1.7.0', packageJSON.engines.homebridge)) {
+          if (satisfies('1.8.0', packageJSON.engines.homebridge)) {
             this.passed.push('Package JSON: `engines.homebridge` property is compatible with Homebridge 1.7.0')
           } else {
             this.failed.push('Package JSON: `engines.homebridge` property is not compatible with Homebridge 1.7.0')
