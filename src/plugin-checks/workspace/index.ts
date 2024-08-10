@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 
-import { mkdirp, pathExists, readJson, remove, writeJson } from 'fs-extra'
+import fs from 'fs-extra'
 import { satisfies } from 'semver'
 import { request } from 'undici'
 
@@ -55,7 +55,7 @@ class CheckHomebridgePlugin {
       this.failed.push(e.message)
     }
 
-    await writeJson('/results/results.json', {
+    await fs.writeJson('/results/results.json', {
       failed: this.failed,
       passed: this.passed,
     })
@@ -66,12 +66,12 @@ class CheckHomebridgePlugin {
   async createTestArea() {
     this.testPath = resolve(__dirname, 'test-area')
 
-    if (await pathExists(this.testPath)) {
-      await remove(this.testPath)
+    if (await fs.pathExists(this.testPath)) {
+      await fs.remove(this.testPath)
     }
 
-    await mkdirp(this.testPath)
-    await writeJson(join(this.testPath, 'package.json'), {
+    await fs.mkdirp(this.testPath)
+    await fs.writeJson(join(this.testPath, 'package.json'), {
       private: true,
       name: 'test-area',
       description: 'n/a',
@@ -100,7 +100,7 @@ class CheckHomebridgePlugin {
 
   async testPkgJson() {
     try {
-      const packageJSON = await readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
+      const packageJSON = await fs.readJson(join(this.testPath, 'node_modules', this.packageName, 'package.json')) as any
 
       // Validate homepage: it should exist
       if (packageJSON.homepage && packageJSON.homepage.startsWith('https://')) {
@@ -325,11 +325,11 @@ class CheckHomebridgePlugin {
   async testConfigSchema() {
     const schemaPath = join(this.testPath, 'node_modules', this.packageName, 'config.schema.json')
 
-    if (await pathExists(schemaPath)) {
+    if (await fs.pathExists(schemaPath)) {
       let configSchema: any
 
       try {
-        configSchema = await readJson(schemaPath)
+        configSchema = await fs.readJson(schemaPath)
         this.passed.push('Config Schema JSON: exists and is valid JSON')
       } catch (e) {
         this.failed.push('Config Schema JSON: does not contain valid JSON')
@@ -360,13 +360,13 @@ class CheckHomebridgePlugin {
   }
 
   async testDependencies() {
-    if (await pathExists(join(this.testPath, 'node_modules', 'homebridge'))) {
+    if (await fs.pathExists(join(this.testPath, 'node_modules', 'homebridge'))) {
       this.failed.push('Dependencies: `homebridge` was installed as a dependency')
     } else {
       this.passed.push('Dependencies: `homebridge` was not installed as a dependency')
     }
 
-    if (await pathExists(join(this.testPath, 'node_modules', 'hap-nodejs'))) {
+    if (await fs.pathExists(join(this.testPath, 'node_modules', 'hap-nodejs'))) {
       this.failed.push('Dependencies: `hap-nodejs` was installed as a dependency')
     } else {
       this.passed.push('Dependencies: `hap-nodejs` was not installed as a dependency')
