@@ -7,6 +7,9 @@
   "author": "",
   "license": "ISC",
   "main": "index.js",
+  "scripts": {
+    "install": "tsc"
+  },
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.2.0",
