@@ -17,11 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues' || (github.event_name == 'issue_comment' &&
       github.event.comment.body == '/check') || (github.event_name == 'workflow_dispatch' &&
-        inputs.plugin)
+      inputs.plugin)
     steps:
       - uses: actions/checkout@v4
       - name: Install Dependencies
-        run: npm install --prefix precheck
+        run: npm install
+      - name: Compile TypeScript
+        run: tsc ./src/plugin-checks/index.ts
       - name: Extract Plugin Name
         id: extract
         run: |
@@ -33,6 +35,6 @@ jobs:
           fi
           echo "PLUGIN_NAME=$PLUGIN_NAME" >> $GITHUB_ENV
       - name: Check Plugin
-        uses: ./precheck
+        uses: ./src/plugin-checks
         with:
           plugin: ${{ env.PLUGIN_NAME }}

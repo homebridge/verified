@@ -18,7 +18,7 @@ export interface Plugin {
   packaged: boolean
 }
 
-export class Main {
+class PluginTarballs {
   private octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
   })
@@ -174,7 +174,7 @@ export class Main {
           owner: this.githubProjectOwner,
           repo: this.githubProjectRepo,
           release_id: this.release.id,
-          name: new Date().toISOString().split('T')[0],
+          name: `Plugin Tarballs ${new Date().toISOString().split('T')[0]}`,
           body: 'Recently updated plugins:\n\n'
           + `${this.pluginsSuccessfullyUpdated.map(x => `- ${x.name}@${x.version}`).join('\n')}\n`
           + '---\n'
@@ -405,8 +405,8 @@ export class Main {
   }
 }
 
-// bootstrap and urn
+// bootstrap and run
 (async () => {
-  const main = new Main()
+  const main = new PluginTarballs()
   await main.run()
 })()

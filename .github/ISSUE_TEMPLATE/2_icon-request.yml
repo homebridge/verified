@@ -1,10 +1,10 @@
 name: Plugin Icon Request
 description: Request an icon for your verified plugin
-title: "Plugin Icon Request: homebridge-"
+title: 'Plugin Icon Request: homebridge-'
 body:
   - type: markdown
     attributes:
-      value: "## Basic Details"
+      value: '## Basic Details'
   - type: markdown
     attributes:
       value: |

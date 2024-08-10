@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+import fs from 'node:fs'
 
 const verified = JSON.parse(fs.readFileSync('verified-plugins.json', 'utf8'))
 const verifiedSorted = verified.sort()

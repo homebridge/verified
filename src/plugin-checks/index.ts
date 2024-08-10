@@ -4,18 +4,18 @@
 
 import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
-import * as process from 'node:process'
+import process from 'node:process'
 
 import { debug, getInput } from '@actions/core'
 import { getOctokit } from '@actions/github'
 import { mkdirp, pathExists, readJson } from 'fs-extra'
 
-class PluginTests {
-  static pluginName: string
-  static passed: string[] = []
-  static failed: string[] = []
+class PluginChecks {
+  private pluginName: string
+  private passed: string[] = []
+  private failed: string[] = []
 
-  static async start() {
+  async run() {
     try {
       const pluginName = getInput('plugin', { required: true })
       console.log('******************************')
@@ -37,13 +37,13 @@ class PluginTests {
 
     if (this.failed.length) {
       comment += '🔴 The following pre-checks failed:\n\n'
-      comment += this.failed.map((e) => `- ${e}`).join('\n')
+      comment += this.failed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
     if (this.passed.length) {
       comment += '🟢 The following pre-checks passed:\n\n'
-      comment += this.passed.map((e) => `- ${e}`).join('\n')
+      comment += this.passed.map(e => `- ${e}`).join('\n')
       comment += '\n\n---\n\n'
     }
 
@@ -62,7 +62,7 @@ class PluginTests {
     }, 100)
   }
 
-  static async addComment(successful: boolean, comment: string) {
+  async addComment(successful: boolean, comment: string) {
     const octokit = getOctokit(getInput('token'))
 
     const repository = process.env.GITHUB_REPOSITORY
@@ -77,7 +77,7 @@ class PluginTests {
       const restParams = {
         owner: repo[0],
         repo: repo[1],
-        issue_number: Number.parseInt(issueNumber, 10)
+        issue_number: Number.parseInt(issueNumber, 10),
       }
 
       // Add a comment to the issue
@@ -93,7 +93,7 @@ class PluginTests {
 
       if (successful) {
         // Add the `pending` label to the issue if it doesn't already have it
-        if (!labels.data.find((label) => label.name === 'pending')) {
+        if (!labels.data.find(label => label.name === 'pending')) {
           await octokit.rest.issues.addLabels({
             ...restParams,
             labels: ['pending'],
@@ -101,7 +101,7 @@ class PluginTests {
         }
 
         // Remove `awaiting-changes` label if it exists
-        if (labels.data.find((label) => label.name === 'awaiting-changes')) {
+        if (labels.data.find(label => label.name === 'awaiting-changes')) {
           await octokit.rest.issues.removeLabel({
             ...restParams,
             name: 'awaiting-changes',
@@ -109,7 +109,7 @@ class PluginTests {
         }
       } else {
         // Add the `awaiting-changes` label to the issue if it doesn't already have it
-        if (!labels.data.find((label) => label.name === 'awaiting-changes')) {
+        if (!labels.data.find(label => label.name === 'awaiting-changes')) {
           await octokit.rest.issues.addLabels({
             ...restParams,
             labels: ['awaiting-changes'],
@@ -117,7 +117,7 @@ class PluginTests {
         }
 
         // Remove `pending` label if it exists
-        if (labels.data.find((label) => label.name === 'pending')) {
+        if (labels.data.find(label => label.name === 'pending')) {
           await octokit.rest.issues.removeLabel({
             ...restParams,
             name: 'pending',
@@ -138,7 +138,7 @@ class PluginTests {
     }
   }
 
-  static async runTests() {
+  async runTests() {
     // create container
     try {
       execSync('docker build -t check .', {
@@ -175,4 +175,8 @@ class PluginTests {
   }
 }
 
-PluginTests.start()
+// bootstrap and run
+(async () => {
+  const main = new PluginChecks()
+  await main.run()
+})()

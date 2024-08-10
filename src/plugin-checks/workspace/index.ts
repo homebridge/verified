@@ -4,13 +4,14 @@
 
 import { spawn } from 'node:child_process'
 import { join, resolve } from 'node:path'
-import * as process from 'node:process'
+import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 
 import { mkdirp, pathExists, readJson, remove, writeJson } from 'fs-extra'
 import { satisfies } from 'semver'
 import { request } from 'undici'
 
+// eslint-disable-next-line no-new-func
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
 
 class CheckHomebridgePlugin {
@@ -224,6 +225,7 @@ class CheckHomebridgePlugin {
       const isESM = main.endsWith('.mjs') || (main.endsWith('.js') && packageJSON.type === 'module')
       const mainPath = join(this.testPath, 'node_modules', this.packageName, main)
 
+      // eslint-disable-next-line ts/no-require-imports
       const pluginModules = isESM ? await _importDynamic(pathToFileURL(mainPath).href) : require(mainPath)
 
       if (typeof pluginModules === 'function') {
@@ -248,8 +250,8 @@ class CheckHomebridgePlugin {
           headers: {
             'User-Agent': 'Homebridge Plugin Precheck',
             'Accept': 'application/vnd.github+json',
-          }
-        }
+          },
+        },
       )
       const repoData = await body.json() as any
 
@@ -281,8 +283,8 @@ class CheckHomebridgePlugin {
           headers: {
             'User-Agent': 'Homebridge Plugin Precheck',
             'Accept': 'application/vnd.github+json',
-          }
-        }
+          },
+        },
       )
       const releaseData = await releases.json() as any
 
@@ -301,7 +303,7 @@ class CheckHomebridgePlugin {
     try {
       const { body } = await request(`https://registry.npmjs.org/${encodeURIComponent(this.packageName).replace(/%40/g, '@')}`, {
         headers: {
-          'accept': 'application/vnd.npm.install-v1+json', // only return minimal information
+          accept: 'application/vnd.npm.install-v1+json', // only return minimal information
         },
       })
 

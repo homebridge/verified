@@ -1,7 +1,7 @@
 name: Plugin Pre-Checks (Schedule)
 on:
   schedule:
-    - cron: "0 0,6,12,18 * * *"
+    - cron: '0 0,6,12,18 * * *'
 
 jobs:
   check-plugin:
@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Dependencies
-        run: npm install --prefix precheck
+        run: npm install
       - name: Randomly Select Plugin
         id: get-verified-plugin
         run: |
           echo "plugin=$(jq -r '.[]' verified-plugins.json | sed '/^$/d' | shuf -n 1)" >> $GITHUB_ENV
         shell: bash
       - name: Check Plugin
-        uses: ./precheck
+        uses: ./src
         with:
           plugin: ${{ env.plugin }}
