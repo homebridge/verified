@@ -167,24 +167,54 @@ class CheckHomebridgePlugin {
       // Validate engine versions
       if (packageJSON.engines) {
         if (packageJSON.engines.node) {
-          if (satisfies('18.20.1', packageJSON.engines.node)) {
-            this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
-          } else {
-            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
-          }
-          if (satisfies('20.12.0', packageJSON.engines.node)) {
-            this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
-          } else {
-            this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
+          try {
+            // Obtain the latest version of Node version 18 and 20
+            const { body } = await request('https://nodejs.org/dist/index.json', {
+              headers: {
+                'User-Agent': 'Homebridge Plugin Checks',
+              },
+            })
+            const versionList = await body.json() as any
+
+            // Get the newest v18 and v20 in the list
+            const latest18 = versionList.filter((x: { version: string }) => x.version.startsWith('v18'))[0]
+            const latest20 = versionList.filter((x: { version: string }) => x.version.startsWith('v20'))[0]
+
+            if (satisfies(latest18, packageJSON.engines.node)) {
+              this.passed.push('Package JSON: `engines.node` property is compatible with Node 18')
+            } else {
+              this.failed.push('Package JSON: `engines.node` property is not compatible with Node 18')
+            }
+            if (satisfies(latest20, packageJSON.engines.node)) {
+              this.passed.push('Package JSON: `engines.node` property is compatible with Node 20')
+            } else {
+              this.failed.push('Package JSON: `engines.node` property is not compatible with Node 20')
+            }
+          } catch (e: any) {
+            this.failed.push(`Package JSON: failed to check Node compatibility as ${e.message}`)
           }
         } else {
           // ok
         }
         if (packageJSON.engines.homebridge) {
-          if (satisfies('1.7.0', packageJSON.engines.homebridge)) {
-            this.passed.push('Package JSON: `engines.homebridge` property is compatible with Homebridge 1.7.0')
-          } else {
-            this.failed.push('Package JSON: `engines.homebridge` property is not compatible with Homebridge 1.7.0')
+          try {
+            // Get the latest Homebridge version
+            const { body } = await request('https://registry.npmjs.org/homebridge', {
+              headers: {
+                accept: 'application/vnd.npm.install-v1+json', // only return minimal information
+              },
+            })
+
+            const bodyJson = await body.json() as any
+            const latestVersion = bodyJson['dist-tags'].latest as string
+
+            if (satisfies(latestVersion, packageJSON.engines.homebridge)) {
+              this.passed.push(`Package JSON: \`engines.homebridge\` property is compatible with Homebridge ${latestVersion}`)
+            } else {
+              this.failed.push(`Package JSON: \`engines.homebridge\` property is not compatible with Homebridge ${latestVersion}`)
+            }
+          } catch (e: any) {
+            this.failed.push(`Package JSON: failed to check Homebridge compatibility as ${e.message}`)
           }
         } else {
           this.failed.push('Package JSON: `engines.homebridge` property missing')
