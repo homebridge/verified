@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { exec } from 'node:child_process'
 import path from 'node:path'
 import process from 'node:process'
@@ -176,10 +177,10 @@ class PluginTarballs {
           release_id: this.release.id,
           name: `Plugin Tarballs ${new Date().toISOString().split('T')[0]}`,
           body: 'Recently updated plugins:\n\n'
-          + `${this.pluginsSuccessfullyUpdated.map(x => `- ${x.name}@${x.version}`).join('\n')}\n`
-          + '---\n'
-          + 'Plugins not processed:\n\n'
-          + `${this.pluginsNotProcessed.map(x => `- ${x.plugin.name} - ${x.error}`).join('\n')}`,
+            + `${this.pluginsSuccessfullyUpdated.map(x => `- ${x.name}@${x.version}`).join('\n')}\n`
+            + '---\n'
+            + 'Plugins not processed:\n\n'
+            + `${this.pluginsNotProcessed.map(x => `- ${x.plugin.name} - ${x.error}`).join('\n')}`,
         })
         console.log('Updated release.')
       } catch (e) {
@@ -364,7 +365,8 @@ class PluginTarballs {
   async removeOldAssets() {
     for (const plugin of this.pluginMap) {
       for (const assetType of ['tar.gz', 'sha256']) {
-        const assetsToRemove = this.release.assets
+        const assetsToRemove = this.release
+          .assets
           .filter((x) => {
             // find old assets (this will not include the assets we just uploaded!)
             return x.label.substring(0, x.label.lastIndexOf('@')) === plugin.name && x.name.endsWith(assetType)

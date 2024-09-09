@@ -116,9 +116,9 @@ The two most recent versions of a plugin are retained in the [Homebridge Plugin 
 
 Bundles are only used on certain systems:
 
-* Debian-based Linux ([via apt package](https://github.com/homebridge/homebridge-apt-pkg)): requires apt package update (=>1.0.27)
-* Docker: requires image update (=>2022-07-07)
-* Synology DSM 7: requires package update via DSM Package Center (=>3.0.7)
+- Debian-based Linux ([via apt package](https://github.com/homebridge/homebridge-apt-pkg)): requires apt package update (=>1.0.27)
+- Docker: requires image update (=>2022-07-07)
+- Synology DSM 7: requires package update via DSM Package Center (=>3.0.7)
 
 When a user requests a plugin to be installed or updated via the Homebridge UI the following workflow is executed:
 
@@ -181,4 +181,4 @@ Copyright (C) 2022-2024 oznu
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](./LICENSE) for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [GNU General Public License](./LICENSE) for more details.

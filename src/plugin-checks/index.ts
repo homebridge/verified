@@ -2,6 +2,7 @@
  * This is a quick script to do some basic checks on Homebridge plugins
  */
 
+/* eslint-disable no-console */
 import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
 import process from 'node:process'

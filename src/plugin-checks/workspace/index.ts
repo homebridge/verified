@@ -2,6 +2,7 @@
  * Checks the Homebridge plugin in a Docker container
  */
 
+/* eslint-disable no-console */
 import { spawn } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
