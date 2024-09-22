@@ -44,3 +44,12 @@ fs.writeFileSync('plugin-icons.json', `${JSON.stringify(Object.keys(icons)
     obj[key] = icons[key]
     return obj
   }, {}), null, 2)}\n`)
+
+console.log('\n----------- STATS -----------')
+console.log(`- Verified With Icon: ${Object.keys(icons).length}`)
+console.log(`- Verified Without Icon: ${verified.length - Object.keys(icons).length}`)
+console.log(`- Verified Total: ${verifiedSorted.length}`)
+console.log(`- Verified Plus Total: ${verifiedPlusSorted.length}`)
+console.log(`- Hidden Total: ${hiddenSorted.length}`)
+console.log('-----------------------------')
+
