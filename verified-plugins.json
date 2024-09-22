@@ -405,6 +405,7 @@
   "homebridge-tcc",
   "homebridge-television-universal-control",
   "homebridge-temperature-sensor-dht",
+  "homebridge-tempstick",
   "homebridge-tesla",
   "homebridge-tesy-heater-v2",
   "homebridge-texecom-connect",
