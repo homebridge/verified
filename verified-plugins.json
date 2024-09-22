@@ -2,6 +2,7 @@
   "@0x5e/homebridge-tuya-platform",
   "@balansse/homebridge-vivint",
   "@busse/homebridge-pluggit",
+  "@chazepps/homebridge-hejhome",
   "@danielgindi/homebridge-bcp-charger",
   "@hansfriedrich/homebridge-feller-wiser",
   "@hernas/homebridge-panasonic-heat-pump",
