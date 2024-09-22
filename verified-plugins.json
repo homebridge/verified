@@ -84,6 +84,7 @@
   "homebridge-camera-ffmpeg",
   "homebridge-camera-ui",
   "homebridge-carrier-infinity",
+  "homebridge-cgd-garage-door",
   "homebridge-cleanmate",
   "homebridge-cloudflared-tunnel",
   "homebridge-cmd4-advantageair",
