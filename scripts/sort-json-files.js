@@ -52,4 +52,3 @@ console.log(`- Verified Total: ${verifiedSorted.length}`)
 console.log(`- Verified Plus Total: ${verifiedPlusSorted.length}`)
 console.log(`- Hidden Total: ${hiddenSorted.length}`)
 console.log('-----------------------------')
-

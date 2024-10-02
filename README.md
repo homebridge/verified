@@ -151,7 +151,7 @@ If you are accessing the file programmatically, you will need add a `nonce` quer
 
 #### How do I get my plugin included?
 
-All [verified Homebridge plugins](https://homebridge.io/w/Verified-Plugins) are automatically included.
+All verified Homebridge plugins are automatically included.
 
 #### What happens if a user attempts to install the latest version of my plugin before the bundle is created?
 
@@ -159,7 +159,7 @@ The plugin will be installed directly from the NPM registry instead.
 
 #### How do I exclude my plugin from being bundled by this project?
 
-Create a pull request adding your plugin's name to the `pluginFilter: string[]` array in the [src/maintain-tarballs.ts](./src/plugin-tarballs.ts) file.
+Create a pull request adding your plugin's name to the `pluginFilter: string[]` array in the [src/plugin-tarballs/index.ts](./src/plugin-tarballs/index.ts) file.
 
 ## Community
 
