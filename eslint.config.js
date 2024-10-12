@@ -21,6 +21,7 @@ export default antfu({
     'unused-imports/no-unused-vars': ['error', { caughtErrors: 'none' }],
   },
   typescript: true,
+  yaml: true,
   formatters: {
     markdown: true,
   },

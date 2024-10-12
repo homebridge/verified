@@ -1,0 +1,21 @@
+name: Plugin Maintain Request
+description: Request to maintain a Homebridge plugin.
+title: 'Maintain Request: homebridge-'
+labels:
+  - request-maintain
+body:
+  - type: markdown
+    attributes:
+      value: '## Basic Details'
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin Name
+      description: The name of the plugin you would like to maintain.
+      placeholder: homebridge-xyz
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: References
+      description: References to other plugins you have developed or have helped maintain.

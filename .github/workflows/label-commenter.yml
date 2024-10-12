@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Label Commenter
+        if: ${{ contains(github.event.issue.labels.*.name, 'request-verification') }}
         uses: peaceiris/actions-label-commenter@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -106,7 +106,7 @@ class PluginTarballs {
    * Get the verified plugins list
    */
   async getVerifiedPluginsList() {
-    const response = await axios.get<string[]>('https://raw.githubusercontent.com/homebridge/verified/main/verified-plugins.json')
+    const response = await axios.get<string[]>('https://raw.githubusercontent.com/homebridge/plugins/latest/verified-plugins.json')
     this.pluginList = response.data.filter(x => !this.pluginFilter.includes(x))
     console.log(`Processing ${this.pluginList.length} verified plugins...`)
 

@@ -15,9 +15,9 @@ on:
 jobs:
   check-plugin:
     runs-on: ubuntu-latest
-    if: github.event_name == 'issues' || (github.event_name == 'issue_comment' &&
-      github.event.comment.body == '/check') || (github.event_name == 'workflow_dispatch' &&
-      inputs.plugin)
+    if: (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'request-verification')) ||
+      (github.event_name == 'issue_comment' && github.event.comment.body == '/check' && contains(github.event.issue.labels.*.name, 'request-verification')) ||
+      (github.event_name == 'workflow_dispatch' && inputs.plugin)
     steps:
       - uses: actions/checkout@v4
       - name: Install Dependencies & Build

@@ -1,7 +1,8 @@
 name: Plugin Verification Request
-description: Request verification for your plugin
+description: Request verification for your plugin.
 title: 'Verification Request: homebridge-'
 labels:
+  - request-verification
   - pending
 body:
   - type: markdown
@@ -11,7 +12,7 @@ body:
     attributes:
       value: >
         Please double check the [requirements
-        list](https://github.com/homebridge/verified#requirements) before
+        list](https://github.com/homebridge/plugins#requirements) before
         submitting a request.
   - type: input
     id: plugin-name

@@ -4,13 +4,29 @@
 
 <span align="center">
 
-# Verified By Homebridge
+# Plugins
 
 </span>
 
+Information and resources for Homebridge plugins.
+
+Create [an issue](https://github.com/homebridge/plugins/issues/new/choose) to:
+
+- request verification for your plugin
+- request an icon for your verified plugin
+- request a transfer of ownership for a plugin
+- request to maintain an unmaintained plugin
+
+More info on these topics can be found below.
+
+## Plugin Verification
+
 The **Verified By Homebridge** program allows plugin developers to get their plugins reviewed and endorsed by the Homebridge project team.
 
-## Benefits
+<details>
+  <summary>View/Hide Information</summary>
+
+### Benefits
 
 - Have your plugin reviewed by the Homebridge team.
 - Increase the visibility of your plugin.
@@ -20,7 +36,7 @@ The **Verified By Homebridge** program allows plugin developers to get their plu
 - Your plugin is bumped to the top of the search results in the Homebridge UI.
 - You can optionally upload an icon for your plugin which will be displayed in the Homebridge UI.
 
-## Requirements
+### Requirements
 
 The Homebridge project team will check that your plugin meets the following criteria:
 
@@ -43,15 +59,15 @@ The Homebridge project team will check that your plugin meets the following crit
 
 These verification requirements were last updated on 2023-12-08. Existing verified plugins will have met the requirements at the time of verification, and not necessarily the current requirements.
 
-## How To Request Verification
+### How To Request Verification
 
-If you would like your plugin verified, please open an [issue](https://github.com/homebridge/verified/issues/new/choose) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
+If you would like your plugin verified, please open an [issue](https://github.com/homebridge/plugins/issues/new/choose) on this repository and fill in the template. The Homebridge project team will then review your plugin and provide constructive feedback if required.
 
 If you feel that your plugin should replace the verification status of an existing plugin, let us know and this will be dealt with on an individual basis.
 
 If you need assistance meeting the verification requirements, please reach out on the [Homebridge Discord](https://discord.gg/A7nCjbz).
 
-## Post Verification
+### Post Verification
 
 Once your plugin has been verified you will remain in full control of the GitHub repository and npm package. Your plugin will appear on the 'Verified By Homebridge' plugin list and the '**Verified**' badge will appear next to your plugin when the next update to the [Homebridge UI](https://github.com/oznu/homebridge-config-ui-x) is published.
 
@@ -71,7 +87,7 @@ You may optionally add one of the **Verified By Homebridge** badges to your plug
 
 If you decide you no longer wish to maintain your plugin, please reach out to the Homebridge team on the [Homebridge Discord](https://discord.gg/6GUFCb). We can assist in finding a new owner, or take over the repository until a new maintainer can be found.
 
-## Un-verification
+### Un-verification
 
 Your plugin may be subject to another review or be removed from the verification list when deemed necessary by the Homebridge team - this could be (but not limited to) the following scenarios:
 
@@ -83,9 +99,22 @@ We will generally do our best to contact existing developers of plugins before r
 - We notice any sort of user analysis tracking in a verified plugin
 - A new plugin requests verification which replaces the functionality of any existing plugin, and we notice that the existing plugin has not been maintained for an extended period of time (and we deem it likely that any contact attempt with the developer would be unsuccessful).
 
+</details>
+
+## Transfer to Homebridge
+
+See the [Unmaintained Plugins](https://github.com/homebridge/plugins/wiki/Unmaintained-Plugins) wiki page for more information about transferring an unmaintained plugin to the Homebridge project.
+
+## Maintain a Plugin
+
+See the [Unmaintained Plugins](https://github.com/homebridge/plugins/wiki/Unmaintained-Plugins) wiki page for more information about maintaining an unmaintained plugin, and a current list of plugins that need a new maintainer.
+
 ## Verified Plugin Bundles
 
 The purpose of this is to help make the plugin installation process faster and more reliable for verified plugins.
+
+<details>
+  <summary>View/Hide Information</summary>
 
 ### Why This Is Needed
 
@@ -101,16 +130,16 @@ A plugin installed via a bundle from this repo can be downloaded and installed i
 
 ### How The Bundle Generation Process Works
 
-Every 30 minutes, a job is executed using GitHub Actions to check for updates made to any [verified Homebridge plugins](https://homebridge.io/w/Verified-Plugins).
+Every 24 hours, a job is executed using GitHub Actions to check for updates made to any [verified Homebridge plugins](https://homebridge.io/w/Verified-Plugins).
 
 Plugins that require updates are then:
 
 1. Installed using `npm` in a clean work directory, post install scripts are disabled;
 2. then a `.tar.gz` bundle is created for the plugin, including all it's dependencies;
 3. then a `.sha256` checksum file is generated for the bundle;
-4. finally the resulting tarball and checksum file are uploaded to the [Homebridge Plugin Repo](https://github.com/homebridge/plugin-repo/releases/tag/v1).
+4. finally the resulting tarball and checksum file are uploaded to [this repo](https://github.com/homebridge/plugins/releases/tag/v1.0.0).
 
-The two most recent versions of a plugin are retained in the [Homebridge Plugin Repo](https://github.com/homebridge/plugin-repo/releases/tag/v1), older versions are purged automatically.
+The two most recent versions of a plugin are retained in [this repo](https://github.com/homebridge/plugins/releases/tag/v1.0.0), older versions are purged automatically.
 
 ### How Plugins Are Installed Via Bundles
 
@@ -141,9 +170,9 @@ If at any step, the process fails, the Homebridge UI will fall back to using `np
 
 This project may impact the download stats for plugins provided by the NPM registry.
 
-As such download stats are available via the [download-statistics.json](https://github.com/homebridge/plugin-repo/releases/download/v1/download-statistics.json) file. This file contains the total downloads from this repo for each verified plugin, as well as the download count for each version (including old versions that have been purged).
+As such download stats are available via the [download-statistics.json](https://github.com/homebridge/plugins/releases/download/v1.0.0/download-statistics.json) file. This file contains the total downloads from this repo for each verified plugin, as well as the download count for each version (including old versions that have been purged).
 
-The `download-statistics.json` file is updated every 30 minutes.
+The `download-statistics.json` file is updated every 24 hours.
 
 If you are accessing the file programmatically, you will need add a `nonce` query string to the URL to prevent it being redirected to an older (deleted) version of the file. E.g. `/download-statistics.json?nonce=1657193776`.
 
@@ -160,6 +189,8 @@ The plugin will be installed directly from the NPM registry instead.
 #### How do I exclude my plugin from being bundled by this project?
 
 Create a pull request adding your plugin's name to the `pluginFilter: string[]` array in the [src/plugin-tarballs/index.ts](./src/plugin-tarballs/index.ts) file.
+
+</details>
 
 ## Community
 
